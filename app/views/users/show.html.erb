@@ -4,9 +4,9 @@
 <!-- TAB BAR -->
 
 <div class="tab">
-  <button class="tablinks lato heavy white" id="groupstab" onclick="openCity(event, 'Groups')">Groups</button>
-  <button class="tablinks lato heavy white" onclick="openCity(event, 'Expenses')">Paid</button>
-  <button class="tablinks lato heavy white" onclick="openCity(event, 'Received')">People</button>
+  <button class="tablinks Poppins heavy white" id="groupstab" onclick="openCity(event, 'Groups')">Groups</button>
+  <button class="tablinks Poppins heavy white" onclick="openCity(event, 'Expenses')">Paid</button>
+  <button class="tablinks Poppins heavy white" onclick="openCity(event, 'Received')">People</button>
 </div>
 
 <!-- GROUPS BODY -->
@@ -17,8 +17,8 @@
       <%= link_to group_path(user_id: @user.id, group_id: g.id) do %>
         <div class="group">
           <div class="grouptext">
-            <h5 class="lato heavy"><%= g.name %></h5>
-            <p class="lato">Since <%= g.created_at.strftime("%b %d, %Y") %></p>
+            <h5 class="Poppins heavy"><%= g.name %></h5>
+            <p class="Poppins">Since <%= g.created_at.strftime("%b %d, %Y") %></p>
             <div class="row">
               <% if g.users.count <= 4 %>
                 <% g.users.each do |user| %>
@@ -51,10 +51,10 @@
               <%# if @user.outstanding_with_person_in_group(member, g) == 0 %>
 
               <%# elsif @user.outstanding_with_person_in_group(member, g) < 0 %>
-                <!-- <h5 class="lato heavy">You owe: <span style="color:red"> £<%# sprintf("%.2f", @user.outstanding_with_person_in_group(member, g).to_f * -1 / 100) %></span></h5> -->
+                <!-- <h5 class="Poppins heavy">You owe: <span style="color:red"> £<%# sprintf("%.2f", @user.outstanding_with_person_in_group(member, g).to_f * -1 / 100) %></span></h5> -->
               <%# else %>
                 <%# ower = User.find(member.user_id) %>
-                <!-- <h5 class="lato heavy"><%# ower.first_name %> owes you: <span style="color:green">£<%# sprintf("%.2f", @user.outstanding_with_person_in_group(member, g).to_f / 100) %></span></h5> -->
+                <!-- <h5 class="Poppins heavy"><%# ower.first_name %> owes you: <span style="color:green">£<%# sprintf("%.2f", @user.outstanding_with_person_in_group(member, g).to_f / 100) %></span></h5> -->
               <%# end %>
             <%# end %>
 
@@ -69,9 +69,9 @@
           <div class="grouptext">
             <% payee = User.find_by(id: expense.splits.last.user_id) %>
             <div class="grouptext">
-              <h5 class="lato heavy">You paid <%= expense.title.split.last %> back</h5>
-              <p class="lato"><%= expense.created_at.strftime("%b %d, %Y") %></p>
-              <p class="lato red">£ <%= sprintf("%.2f", expense.amount_cents.to_f / 100) %></p>
+              <h5 class="Poppins heavy">You paid <%= expense.title.split.last %> back</h5>
+              <p class="Poppins"><%= expense.created_at.strftime("%b %d, %Y") %></p>
+              <p class="Poppins red">£ <%= sprintf("%.2f", expense.amount_cents.to_f / 100) %></p>
             </div>
           </div>
             <div class="groupimages">
@@ -85,9 +85,9 @@
             </div>
         <% else %>
           <div class="grouptext">
-            <h5 class="lato heavy">You paid for <%= expense.title %></h5>
-            <p class="lato"><%= expense.created_at.strftime("%b %d, %Y") %></p>
-            <p class="lato red">£ <%= sprintf("%.2f", expense.amount_cents.to_f / 100) %></p>
+            <h5 class="Poppins heavy">You paid for <%= expense.title %></h5>
+            <p class="Poppins"><%= expense.created_at.strftime("%b %d, %Y") %></p>
+            <p class="Poppins red">£ <%= sprintf("%.2f", expense.amount_cents.to_f / 100) %></p>
           </div>
         <% end %>
         <div class="list-item-arrow-btn align-center">
@@ -106,7 +106,7 @@
 
   <div class="mobile-container">
     <div class="title-section">
-      <h3 class="lato heavy">You are owed</h3>
+      <h3 class="Poppins heavy">You are owed</h3>
     </div>
   </div>
   <% @users.each do |member| %>
@@ -134,7 +134,7 @@
 
   <div class="mobile-container">
     <div class="title-section">
-      <h3 class="lato heavy">You owe</h3>
+      <h3 class="Poppins heavy">You owe</h3>
       <%# link_to "#", class: "fb-blue" do %>
         <!-- Settle All <img src="https://png.icons8.com/paper-plane/ios11/30/0084FF" class="paper-plane" > -->
       <%# end %>

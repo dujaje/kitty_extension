@@ -1,6 +1,6 @@
 require_relative '../views/botreply'
 
-class Webhooks::WebhooksController < ApplicationController
+class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def messenger
@@ -11,7 +11,7 @@ class Webhooks::WebhooksController < ApplicationController
     end
   end
 
-  def receive_message
+  def messenger_receive_message
     therequest = request.body.read
     data = JSON.parse(therequest)
     entries = data["entry"]

@@ -1,3 +1,5 @@
+require_dependency "app/services/facebook_service.rb"
+
 class Api::V1::UsersController < Api::V1::BaseController
   def create
 
@@ -7,7 +9,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     expected_sig = OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), ENV['APP_SECRET'], payload)
 
     puts "All ok re signature"
-
     puts get_params[:thread_type]
 
     # Finds or Creates a New User

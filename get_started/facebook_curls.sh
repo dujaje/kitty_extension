@@ -26,21 +26,21 @@ curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whiteli
 # ADAPT this to whitelist domain. "add" != "remove"
 curl -X POST -H "Content-Type: application/json" -d '{
   "setting_type" : "domain_whitelisting",
-  "whitelisted_domains" : ["https://kittysplit.herokuapp.com"],
+  "whitelisted_domains" : ["https://64c53f3c.ngrok.io"],
   "domain_action_type": "add"
-}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAdHTu6J8uMBAAZAO48Grid3TNHryiHu6Bi9EFYXhOhPHsw6haZA9VAli66kgrzYxmfQFfZCVFZCNZCAyL0eU4Ug5LOdYbMnZC13KpZCvZBgZC09RxC6ZCWYfNGWtNTZAPOy3uaPEhOzf9a3tUhcjZARGH86LUUbh4RmuydoQbzlZB1XpugZDZD"
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAEWFPF7NhkBAFViz7xRZBOKjtssA5kt0iqZCrYAxK1otWwFH515O7iH6ywewJecJmyZBKmQGFqAhP9KpBG6jLaJfn7SRnAfxDnTvhdYCYteEXA3a6JGCtfrmtGWwx2Mo8JZASIYJjDIHLKohwRb7af06651bOs52NuM3bJYQQZDZD"
 
 
 # This initiates the home url for Kitty
 curl -X POST -H "Content-Type: application/json" -d ' {
   "home_url" : {
-     "url": "https://kittysplit.herokuapp.com/extension/welcome",
+     "url": "https://64c53f3c.ngrok.io/welcome",
      "webview_height_ratio": "tall",
      "webview_share_button": "hide",
      "in_test":true
   }
 
-}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAdHTu6J8uMBAAZAO48Grid3TNHryiHu6Bi9EFYXhOhPHsw6haZA9VAli66kgrzYxmfQFfZCVFZCNZCAyL0eU4Ug5LOdYbMnZC13KpZCvZBgZC09RxC6ZCWYfNGWtNTZAPOy3uaPEhOzf9a3tUhcjZARGH86LUUbh4RmuydoQbzlZB1XpugZDZD"
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAEWFPF7NhkBAFViz7xRZBOKjtssA5kt0iqZCrYAxK1otWwFH515O7iH6ywewJecJmyZBKmQGFqAhP9KpBG6jLaJfn7SRnAfxDnTvhdYCYteEXA3a6JGCtfrmtGWwx2Mo8JZASIYJjDIHLKohwRb7af06651bOs52NuM3bJYQQZDZD"
 
 # this initaites the greeting
 

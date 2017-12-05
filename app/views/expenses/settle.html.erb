@@ -1,13 +1,13 @@
 <% @title = "Settle up with #{@to_pay.first_name}" %>
 
 
-<%= simple_form_for [:extension, @expense] do |f| %>
+<%= simple_form_for [ @expense ] do |f| %>
   <div class="mobile-container text-left">
-    <h3 class="lato heavy">How much did you settle with <%= @to_pay.first_name %>?</h3>
+    <h3 class="Poppins heavy">How much did you settle with <%= @to_pay.first_name %>?</h3>
     <p class="list-item-text" >You owe <%= @to_pay.first_name %> in this group: <span style="color:red"> £<%= sprintf("%.2f", @user.outstanding_with_person_in_group(@to_pay, @group).to_f * -1 / 100) %></span></p>
     <div class="button-spacer"></div>
     <% @expense.amount_cents = nil %>
-    <%= f.input :amount_cents, input_html: { id: "amount"}, :type => String, :class => 'lato heavy lighter', :label => false, placeholder: "£0.00" %>
+    <%= f.input :amount_cents, input_html: { id: "amount"}, :type => String, :class => 'Poppins heavy lighter', :label => false, placeholder: "£0.00" %>
     <%= f.hidden_field :title, value: "#{@user.first_name} settled with #{@to_pay.first_name}" %>
     <%= f.hidden_field :description, value: "Settled" %>
     <%= f.hidden_field :user_id, value: @user.id %>
@@ -19,7 +19,7 @@
 
   <div class="fixed-btn-section">
     <%= button_tag type: '#', class: "send-btn" do %>
-      <div class="send-inner eighteen lato heavy"><img src="https://png.icons8.com/paper-plane/ios11/30/ffffff" class="paper-plane" >Add now</div>
+      <div class="send-inner eighteen Poppins heavy"><img src="https://png.icons8.com/paper-plane/ios11/30/ffffff" class="paper-plane" >Add now</div>
     <% end %>
   </div>
 <% end %>
@@ -46,7 +46,7 @@
                             "subtitle": `They paid £${amount.value}`,
                             "buttons":[{
                               "type":"web_url",
-                              "url":"<%= ENV['NGROK'] %>/extension/welcome/",
+                              "url":"<%= ENV['NGROK'] %>/welcome/",
                               "title":"View group",
                               "messenger_extensions": true
                             }]

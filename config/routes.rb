@@ -7,10 +7,12 @@ Rails.application.routes.draw do
   get 'create_kitty', to: 'pages#create_kitty'
   get 'info', to: 'pages#info'
 
-  # OTHER ROOT CONTROLLERS
+  # GROUPS CONTROLLERS
   resources :groups, only: [:show, :update]
+  # EXPENSES CONTROLLERS
   resources :expenses, only: [:new, :create, :show]
   get 'settle', to: 'expenses#settle'
+  # USERS CONTROLLERS
   resources :users, only: [:show]
 
 # WEBHOOKS FOLDER, WEBHOOKS CONTROLLER

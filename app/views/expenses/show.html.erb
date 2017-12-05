@@ -4,7 +4,7 @@
   <% @title = "Expense Breakdown" %>
 <% end %>
 <div class="blue-back flex">
-  <h4 class="lato white heavy"><%= @expense.title %></h4>
+  <h4 class="Poppins white heavy"><%= @expense.title %></h4>
   <div class="navbar-profile-pic">
     <%= link_to user_path(@user) do %>
       <%= image_tag @user.profile_picture_url, class: "avatar-navbar" %>
@@ -12,27 +12,27 @@
   </div>
 </div>
 <div class="mobile-container text-center">
-  <h4 class="lato heavy"><%= @expense.created_at.strftime("%b %d, %Y") %></h4>
+  <h4 class="Poppins heavy"><%= @expense.created_at.strftime("%b %d, %Y") %></h4>
 </div>
 <% unless @expense.location == "" %>
   <div class="mobile-container text-center">
-    <h4 class="lato black heavy"><%= @expense.location %></h4>
+    <h4 class="Poppins black heavy"><%= @expense.location %></h4>
   </div>
 <% end %>
 <% unless @expense.description == "" || @expense.description == "Settled" %>
   <div class="mobile-container text-center">
-    <h5 class="lato">"<%= @expense.description %>"</h5>
+    <h5 class="Poppins">"<%= @expense.description %>"</h5>
   </div>
 <% end %>
 
 
 <% if @expense.description == "Settled" %>
   <div class="mobile-container text-left">
-    <h4 class="lato heavy"><%= @expense.user.first_name %> paid £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %></h4>
+    <h4 class="Poppins heavy"><%= @expense.user.first_name %> paid £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %></h4>
   </div>
 <% else %>
   <div class="mobile-container text-left">
-    <h4 class="lato heavy">The bill was £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %></h4>
+    <h4 class="Poppins heavy">The bill was £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %></h4>
   </div>
 <% end %>
 
@@ -66,11 +66,11 @@
   <div class="mobile-container text-left">
     <% @expense.splits.each do |split| %>
       <% if @expense.user.outstanding_with_person_in_group(split.user, @group) == 0 %>
-        <h4 class="lato heavy"><%= @expense.user.first_name %> and <%= split.user.first_name %> are all square</h4>
+        <h4 class="Poppins heavy"><%= @expense.user.first_name %> and <%= split.user.first_name %> are all square</h4>
       <% elsif @expense.user.outstanding_with_person_in_group(split.user, @group) < 0 %>
-        <h4 class="lato heavy"><%= @expense.user.first_name %> still owes <%= split.user.first_name %>: £<%= sprintf("%.2f", @expense.user.outstanding_with_person_in_group(split.user, @group).to_f * -1 / 100) %></h4>
+        <h4 class="Poppins heavy"><%= @expense.user.first_name %> still owes <%= split.user.first_name %>: £<%= sprintf("%.2f", @expense.user.outstanding_with_person_in_group(split.user, @group).to_f * -1 / 100) %></h4>
       <% else %>
-        <h4 class="lato heavy"><%= split.user.first_name %> now owes <%= @expense.user.first_name %>: £<%= sprintf("%.2f", @expense.user.outstanding_with_person_in_group(split.user, @group).to_f / 100) %></h4>
+        <h4 class="Poppins heavy"><%= split.user.first_name %> now owes <%= @expense.user.first_name %>: £<%= sprintf("%.2f", @expense.user.outstanding_with_person_in_group(split.user, @group).to_f / 100) %></h4>
       <% end %>
     <% end %>
   </div>
@@ -81,6 +81,6 @@
 
 <div class="fixed-btn-section">
   <%= link_to group_path(group_id: @group.id, user_id: @user.id ) do %>
-    <button class="send-btn lato eighteen heavy"><div class="send-inner"><i class="fa fa-arrow-left fa-fw" aria-hidden="true"></i> Back to <%= @group.name %></div></button>
+    <button class="send-btn Poppins eighteen heavy"><div class="send-inner"><i class="fa fa-arrow-left fa-fw" aria-hidden="true"></i> Back to <%= @group.name %></div></button>
   <% end %>
 </div>
