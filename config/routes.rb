@@ -14,10 +14,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
 
 # WEBHOOKS FOLDER, WEBHOOKS CONTROLLER
-  namespace :webhooks do
-    get 'webhooks', to: 'webhooks#messenger'
-    post 'webhooks', to: 'webhooks#messenger_receive_message'
-  end
+  get 'webhooks', to: 'webhooks#messenger'
+  post 'webhooks', to: 'webhooks#messenger_receive_message'
 
 # API
   namespace :api, defaults: { format: :json } do
