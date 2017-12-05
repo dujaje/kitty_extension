@@ -1,15 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>TODO</title>
+
+    <!-- Page Title and Favcon -->
+    <title>
+     <%= @title || "Kitty - In chat money splitter" %>
+    </title>
+    <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type =>  'image/png' %>
+
+    <!-- Page Meta Data: Description -->
+
+    <meta name="description" content="Easily tracked shared expenses with your friends, right inside Facebook messenger">
+
+    <!-- Facebook Open Graph data -->
+    <meta property="og:title" content="Kitty Money Splitter" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kittysplit.herokuapp.com" />
+    <meta property="og:image" content="https://scontent-lhr3-1.xx.fbcdn.net/v/t31.0-8/24291711_160835451336217_6079901373783030030_o.png?oh=601ab6e97aa1dca179f9eb67bfc32bb8&oe=5A9302FC" />
+    <meta property="og:description" content="Easily tracked shared expenses with your friends, right inside Facebook messenger" />
+    <meta property="og:site_name" content="Kitty Money Splitter" />
+
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
+
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/5e176c86ea.js"></script>
   </head>
+
   <body>
+    <!-- Including the Facebook Extension SDK -->
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.com/en_GB/messenger.Extensions.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'Messenger'));
+    </script>
+
+    <!-- Usual Page Yields -->
     <%= yield %>
     <%= javascript_include_tag 'application' %>
+    <%= yield(:after_js) %>
+
   </body>
 </html>
