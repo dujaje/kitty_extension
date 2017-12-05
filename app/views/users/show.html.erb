@@ -14,7 +14,7 @@
 <div id="Groups" class="tabcontent">
   <div class="mobile-container">
     <% @user.groups.each do |g| %>
-      <%= link_to extension_group_path(user_id: @user.id, group_id: g.id) do %>
+      <%= link_to group_path(user_id: @user.id, group_id: g.id) do %>
         <div class="group">
           <div class="grouptext">
             <h5 class="lato heavy"><%= g.name %></h5>
@@ -63,7 +63,7 @@
 <div id="Expenses" class="tabcontent">
   <div class="mobile-container">
   <% @expenses_paid.reverse.each do |expense| %>
-    <%= link_to extension_expense_path(expense, user_id: @user, group_id: expense.group_id) do %>
+    <%= link_to expense_path(expense, user_id: @user, group_id: expense.group_id) do %>
       <div class="group">
         <% if /(settled with)+/.match(expense.title) %>
           <div class="grouptext">
@@ -183,6 +183,3 @@
     evt.currentTarget.className += " active";
   }
 </script>
-
-
-

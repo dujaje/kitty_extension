@@ -1,4 +1,4 @@
-class Extension::ExpensesController < ApplicationController
+class ExpensesController < ApplicationController
   def new
     @expense = Expense.new
     @user = User.find(params[:user_id])
@@ -30,7 +30,7 @@ class Extension::ExpensesController < ApplicationController
       location: @location)
     if @involved_group_string != "" && @involved_group_string != [@user.id.to_s] && @expense.save
       equal_splitter(@expense, @involved_group_string)
-      redirect_to extension_expense_path(@expense, user_id: @user.id, group_id: @group.id)
+      redirect_to expense_path(@expense, user_id: @user.id, group_id: @group.id)
     elsif @expense.description == "Settled"
       render :settle
     else

@@ -43,28 +43,28 @@ class Api::V1::UsersController < Api::V1::BaseController
           user.first_sign_in = false
           puts user.first_sign_in
           user.save
-          url = Rails.application.routes.url_helpers.extension_info_url(user_id: user.id, group_id: group.id)
+          url = Rails.application.routes.url_helpers.info_url(user_id: user.id, group_id: group.id)
         else
           puts "we are in the else"
-          url = Rails.application.routes.url_helpers.extension_group_url(group, user_id: user.id, group_id: group.id)
+          url = Rails.application.routes.url_helpers.group_url(group, user_id: user.id, group_id: group.id)
           puts "1 #{url}"
         end
       else
         user.first_sign_in = false
         user.save
-        url = Rails.application.routes.url_helpers.extension_create_kitty_url(user_id: user.id, group_id: group.id)
+        url = Rails.application.routes.url_helpers.create_kitty_url(user_id: user.id, group_id: group.id)
         puts "2 #{url}"
       end
     else
       group = Group.create(tid: get_params[:tid], name: "Your Kitty")
       group.thread_type = get_params[:thread_type]
-      url = Rails.application.routes.url_helpers.extension_create_kitty_url(user_id: user.id, group_id: group.id)
+      url = Rails.application.routes.url_helpers.create_kitty_url(user_id: user.id, group_id: group.id)
       puts "3 #{url}"
     end
 
     if get_params[:thread_type] == "USER_TO_PAGE"
       puts "4 in user_to_page"
-      url = Rails.application.routes.url_helpers.extension_user_url(user)
+      url = Rails.application.routes.url_helpers.user_url(user)
       puts "4 #{url}"
     else
       # Finds or Creates a Membership

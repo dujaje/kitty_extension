@@ -1,4 +1,4 @@
-class Extension::GroupsController < ApplicationController
+class GroupsController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @user.first_sign_in = false
@@ -15,7 +15,7 @@ class Extension::GroupsController < ApplicationController
     @group = Group.find(params[:group][:group_id])
     @group.name = params[:group][:name]
     @group.save
-    redirect_to extension_group_path(@group, user_id: @user.id, group_id: @group.id)
+    redirect_to group_path(@group, user_id: @user.id, group_id: @group.id)
   end
 
   private

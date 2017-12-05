@@ -6,7 +6,7 @@
 <div class="blue-back flex">
   <h4 class="lato white heavy"><%= @expense.title %></h4>
   <div class="navbar-profile-pic">
-    <%= link_to extension_user_path(@user) do %>
+    <%= link_to user_path(@user) do %>
       <%= image_tag @user.profile_picture_url, class: "avatar-navbar" %>
     <% end %>
   </div>
@@ -80,7 +80,7 @@
 <% end %>
 
 <div class="fixed-btn-section">
-  <%= link_to extension_group_path(group_id: @group.id, user_id: @user.id ) do %>
+  <%= link_to group_path(group_id: @group.id, user_id: @user.id ) do %>
     <button class="send-btn lato eighteen heavy"><div class="send-inner"><i class="fa fa-arrow-left fa-fw" aria-hidden="true"></i> Back to <%= @group.name %></div></button>
   <% end %>
 </div>

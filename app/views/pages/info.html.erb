@@ -18,7 +18,7 @@
 </div>
 
 <div class="fixed-btn-section">
-  <%= link_to extension_group_path(@group, user_id: @user.id, group_id: @group.id) do %>
+  <%= link_to group_path(@group, user_id: @user.id, group_id: @group.id) do %>
     <button class="send-btn lato eighteen heavy"><div class="send-inner">View the group</div></button>
   <% end %>
 </div>

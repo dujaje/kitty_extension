@@ -9,7 +9,7 @@
   <div class="blue-back flex">
     <h4 class="lato white heavy"> <%= @group.name %> </h4>
     <div class="navbar-profile-pic">
-      <%= link_to extension_user_path(@user) do %>
+      <%= link_to user_path(@user) do %>
         <%= image_tag @user.profile_picture_url, class: "avatar-navbar" %>
       <% end %>
     </div>
@@ -31,7 +31,7 @@
     <% end %>
   </div>
   <div class="navbar-profile-pic">
-    <%= link_to extension_user_path(@user) do %>
+    <%= link_to user_path(@user) do %>
       <%= image_tag @user.profile_picture_url, class: "avatar-navbar" %>
     <% end %>
   </div>
@@ -71,7 +71,7 @@
 
         <% if @user.outstanding_with_person_in_group(member, @group) < 0 %>
           <div class="list-item-settle-btn">
-            <%= link_to extension_settle_path(user_id: @user.id, group_id: @group.id, to_pay_id: member.id) do %>
+            <%= link_to settle_path(user_id: @user.id, group_id: @group.id, to_pay_id: member.id) do %>
               <button class="settle-btn"><div class="settle-inner send-inner">Settle <img src="https://png.icons8.com/paper-plane/ios11/22/ffffff"></div></button>
             <% end %>
           </div>
@@ -96,7 +96,7 @@
       </div>
     </div>
     <% @group.expenses.reverse.first(10).each do |expense| %>
-      <%= link_to extension_expense_path(expense, user_id: @user.id, group_id: @group.id) do %>
+      <%= link_to expense_path(expense, user_id: @user.id, group_id: @group.id) do %>
         <div class="list-item-short">
           <div class="divider">
             <div class="list-item-divider-content .align-baseline">
@@ -113,7 +113,7 @@
   <% end %>
 
     <div class="fixed-btn-section">
-      <%= link_to new_extension_expense_path(user_id: @user.id, group_id: @group.id) do %>
+      <%= link_to new_expense_path(user_id: @user.id, group_id: @group.id) do %>
         <button class="send-btn lato eighteen heavy"><div class="send-inner">Pay for something</div></button>
       <% end %>
     </div>
