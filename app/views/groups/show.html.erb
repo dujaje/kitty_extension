@@ -7,7 +7,7 @@
 <% if @group.users.length == 1 && @group.users[0] == @user %>
 
   <div class="blue-back flex">
-    <h4 class="Poppins white heavy"> <%= @group.name %> </h4>
+    <h4 class="Poppins"> <%= @group.name %> </h4>
     <div class="navbar-profile-pic">
       <%= link_to user_path(@user) do %>
         <%= image_tag @user.profile_picture_url, class: "avatar-navbar" %>
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="mobile-container">
-    <h3 class="Poppins heavy">No one else has joined the group chat yet...</h3>
+    <h3 class="Poppins">No one else has joined the group chat yet...</h3>
   </div>
 
 <% else %>
