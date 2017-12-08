@@ -10,9 +10,10 @@ $orange: #E67E22;
 $green: #60D173;
 $gray: #5A6169;
 $light-gray: #E9ECEF;
-$dark-gray: rgba(0,0,0,0.75);
+$dark-gray: #282828;
 $background: #FAFAFA;
 
+//#FAFAFA
 // Some color scheme classes
 
 .color-primary {
@@ -21,4 +22,16 @@ $background: #FAFAFA;
 
 .color-white {
   color: white;
+}
+
+.bg-color-primary {
+  background-color: $green;
+}
+
+.bg-color-white {
+  background-color: white;
+}
+
+.bg-color-info {
+  background-color: $info-blue;
 }

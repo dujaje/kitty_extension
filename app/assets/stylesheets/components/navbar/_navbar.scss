@@ -1,0 +1,25 @@
+.navbar-background {
+  background-color: $green;
+}
+
+#burger-menu {
+  transition: all 1s;
+  animation-fill-mode: forwards;
+}
+
+.navbar-toggler-icon-rotated {
+  transform: rotate(90deg);
+  animation-fill-mode: forwards;
+}
+
+.navbar-no-margin {
+  margin-bottom: 0;
+}
+
+.navigation-link {
+  transition: all 0.1s;
+}
+
+.navigation-link:active {
+  transform: scale(2);
+}
