@@ -1,22 +1,24 @@
 <% @title = "#{@user.first_name}'s new expense" %>
 
+<!-- EXPENSE TITLE INPUT -->
 <div class="small-spacer"></div>
 <div class="mobile-container text-left">
   <h4 class="Poppins heavy">What did you pay for?</h4>
   <%= simple_form_for [ @expense ] do |f| %>
-  <% pay_arr = ["Sunday Lunch", "British Gas", "Beers for the Boys", "Cinema and Crisps", "Pizza", "Council Tax", "Cheeky Nandos", "House Bills"] %>
-  <%= f.input :title, :class => 'Poppins heavy lighter', input_html: { id: "title"}, :label => false, placeholder: "i.e #{pay_arr.sample}" %>
+  <% payment_title_arr = ["Sunday Lunch", "British Gas", "Beers for the Boys", "Cinema and Crisps", "Pizza", "Council Tax", "Cheeky Nandos", "House Bills"] %>
+  <%= f.input :title, :class => 'Poppins heavy lighter', input_html: { id: "title"}, :label => false, placeholder: "i.e #{payment_title_arr.sample}" %>
 
 </div>
 
-<div class="mobile-container text-left">
-  <h4 class="Poppins heavy">How much did you pay?</h4>
-  <% @expense.amount_cents = nil %>
+  <!-- EXPENSE AMOUNT INPUT -->
+  <div class="mobile-container text-left">
+    <h4 class="Poppins heavy">How much did you pay?</h4>
+    <% @expense.amount_cents = nil %>
 
-  <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'Poppins heavy lighter', :label => false, placeholder: "£0.00" %>
-</div>
+    <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'Poppins heavy lighter', :label => false, placeholder: "£0.00" %>
+  </div>
 
-
+  <!-- SIDE SCROLLER + DESCRIPTION -->
   <div class="mobile-container text-left">
     <h4 class="Poppins heavy">Tap to split between...</h4>
   </div>
@@ -29,8 +31,6 @@
         <p>Go on then, who bought something?</p>
       <% end %>
     </div>
-
-    <!-- Rest of form below side-scroller -->
     <div class="testimonial-group side-scroller-base">
     <div class="row">
       <div class="col-xs-3 user-self">
@@ -54,26 +54,28 @@
     </div>
   </div>
 
-
+  <!-- EXPENSE LOCATION INPUT -->
   <div class="mobile-container text-left">
     <h4 class="Poppins heavy">Where was this?</h4>
-    <% where_arr = ["Wagamama", "The Sloaney Pony", "Picturehouse", "Le Rac Shak", "PingPong Dim Sum", "Nandos", "Theater"] %>
-    <%= f.input :location, :class => 'Poppins heavy lighter', :label => false, placeholder: "i.e. #{where_arr.sample}" %>
+    <% locations_arr = ["Wagamama", "The Sloaney Pony", "Picturehouse", "Le Rac Shak", "PingPong Dim Sum", "Nandos", "Theater"] %>
+    <%= f.input :location, :class => 'Poppins heavy lighter', :label => false, placeholder: "i.e. #{locations_arr.sample}" %>
   </div>
 
+  <!-- EXPENSE DESCRIPTION INPUT -->
   <div class="mobile-container text-left">
     <h4 class="Poppins heavy">More Information:</h4>
-    <% extra_arr = ["Jamie's Birthday", "Open Mic Night", "Holiday on Mallorca", "Interrailing with Charlotte", "Weekend trip to Wonderland", "Deliveroo"] %>
-    <%= f.input :description, :class => 'Poppins heavy lighter form-item', :label => false, :type => "text", placeholder: "i.e. #{extra_arr.sample} " %>
+    <% descriptions_arr = ["Jamie's Birthday", "Open Mic Night", "Holiday on Mallorca", "Interrailing with Charlotte", "Weekend trip to Wonderland", "Deliveroo"] %>
+    <%= f.input :description, :class => 'Poppins heavy lighter form-item', :label => false, :type => "text", placeholder: "i.e. #{descriptions_arr.sample} " %>
   </div>
 
-
+  <!-- HIDDEN INPUTS -->
   <%= f.input :involved_group, as: :hidden, input_html: { value: "", id: "involved_group_field" } %>
   <%= f.hidden_field :user_id, value: @user.id %>
   <%= f.hidden_field :to_pay_id, value: @user.id %>
   <%= f.hidden_field :group_id, value: @group.id %>
   </div>
 
+  <!-- INPUT BUTTON -->
   <!-- <div class="fixed-btn-section"> -->
     <%= button_tag type: 'submit', class: "send-btn Poppins eighteen heavy" do %>
       <div class="send-inner"><img src="https://png.icons8.com/paper-plane/ios11/30/ffffff" class="paper-plane" >Add now</div>
