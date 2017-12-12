@@ -17,5 +17,6 @@
 }
 
 .avatar-highlighted {
-  border: 4px solid $green
+  border: 4px solid $green;
+  transition: 0.3s all ease;
 }

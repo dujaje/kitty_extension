@@ -88,106 +88,128 @@
 <!-- JAVASCRIPT FOR THE BUTTON TO SEND TO GROUP AND CLOSE BROWSER -->
 <% content_for(:after_js) do %>
   <script>
+  // ###########################################################################################################
+  // Page Wide Variables:
+  // ###########################################################################################################
     let avatars = document.querySelectorAll(".avatar-scroll");
     let description = document.querySelector(".side-scroller-description");
-
+    let message = {
+                  "attachment":{
+                    "type":"template",
+                    "payload":{
+                      "template_type":"generic",
+                      "elements": [{
+                        "title":"<%= @user.first_name %> just added an expense to your Kitty!",
+                        "subtitle": `They paid £${amount.value} for ${title.value}`,
+                        "buttons":[{
+                          "type":"web_url",
+                          "url":"<%= ENV['NGROK'] %>/extension/",
+                          "title":"View the Expense",
+                          "messenger_extensions": true
+                        }]
+                      }]
+                    }
+                  }
+                };
+  // ###########################################################################################################
+  // Output Code
+  // ###########################################################################################################
+  // Update Array of Members Involved and Avatar Highlighting
     avatars.forEach((avatar) => {
       avatar.addEventListener("click", () => {
         avatar.classList.toggle("avatar-highlighted");
-        let membersArray = []
-        avatars.forEach((avatar) => {
-          if (avatar.classList.contains("avatar-highlighted")) {
-            membersArray.push(avatar.dataset.id);
-          }
-        })
-        console.log(membersArray)
-        document.getElementById("involved_group_field").value = `${membersArray}`
-        console.log(document.getElementById("involved_group_field").value)
-
-        if (membersArray.length === <%= @group.users.count %>) {
-          description.innerHTML = "";
-          description.insertAdjacentHTML('afterbegin','<p><strong>Split equally</strong> between <strong>all members</strong> of the group</p>');
-        }
-        else if (membersArray.length > 2 && document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
-          const others_amount = membersArray.length - 1
-          description.innerHTML = "";
-          description.insertAdjacentHTML('afterbegin',`<p><strong>Split equally</strong> between <strong>you and ${others_amount} others</strong></p>`);
-        }
-        else if (membersArray.length === 1 && document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
-          const others_amount = membersArray.length - 1
-          description.innerHTML = "";
-          description.insertAdjacentHTML('afterbegin',`<p>You want to make an expense just with yourself? Even a cat doubts that...</p>`);
-        }
-        else if (document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
-          const others_amount = membersArray.length - 1
-          description.innerHTML = "";
-          description.insertAdjacentHTML('afterbegin',`<p><strong>Split equally</strong> between <strong>you and ${others_amount} other</strong></p>`);
-        }
-        else if (membersArray.length > 1) {
-          const others_amount = membersArray.length
-          description.innerHTML = "";
-          description.insertAdjacentHTML('afterbegin',`<p><strong>You are owed everything</strong> by <strong>${others_amount} others</strong> who split it equally</p>`);
-        }
-        else if (membersArray.length === 1) {
-          const others_amount = membersArray.length
-          description.innerHTML = "";
-          description.insertAdjacentHTML('afterbegin',`<p><strong>You are owed everything</strong> by just <strong>${others_amount} person</strong></p>`);
-        }
-        else {
-          description.innerHTML = "";
-          description.insertAdjacentHTML('afterbegin',`<p>Well this isn't going to work is it</p>`);
-        }
+        let membersArray = [];
+        alterMembersArray(membersArray);
+        document.getElementById("involved_group_field").value = `${membersArray}`;
+        chooseAndAppendDescription(membersArray);
       })
     })
-
+  // On click of send button, success and failure
     document.querySelector(".send-btn").addEventListener("click", () => {
-      console.log(document.getElementById("involved_group_field").value)
       if (document.getElementById("involved_group_field").value === "" || document.getElementById("involved_group_field").value === ["<%= @user.id %>"]) {
-        document.body.append("You haven't selected anyone!");
-        description.innerHTML = "";
+        descriptionForFailedPeopleSelection();
       }
       else {
-        var amount = document.getElementById('amount')
-        var title = document.getElementById('title')
-        let message = {
-                      "attachment":{
-                        "type":"template",
-                        "payload":{
-                          "template_type":"generic",
-                          "elements": [{
-                            "title":"<%= @user.first_name %> just added an expense to your Kitty!",
-                            "subtitle": `They paid £${amount.value} for ${title.value}`,
-                            "buttons":[{
-                              "type":"web_url",
-                              "url":"<%= ENV['NGROK'] %>/extension/",
-                              "title":"View the Expense",
-                              "messenger_extensions": true
-                            }]
-                          }]
-                        }
-                      }
-                    };
-
+        updateMessageWithTitleAndAmount()
+        // Begin Facebook's Send to Group Flow
         MessengerExtensions.beginShareFlow(function(share_response) {
           // User dismissed without error, but did they share the message?
           if(share_response.is_sent){
             // The user actually did share.
             // Perhaps close the window w/ requestCloseBrowser().
             MessengerExtensions.requestCloseBrowser(function success() {
-              // webview closed
+              // webview closed if successful
             }, function error(err) {
-              // an error occurred
+              // if an error occurred, run no code
             });
           }
         },
         function(errorCode, errorMessage) {
-        // An error occurred in the process
-
+        // An error occurred in the process of sending message, do nothing
         },
         message,
         "current_thread");
+        // End Facebook's Send to Group Flow
       }
     });
+  // ###########################################################################################################
+  // Supporter Functions
+  // ###########################################################################################################
+    function alterMembersArray(membersArray) {
+      avatars.forEach((avatar) => {
+        if (avatar.classList.contains("avatar-highlighted")) {
+          membersArray.push(avatar.dataset.id);
+        }
+      })
+      return membersArray;
+    }
+
+    function descriptionForFailedPeopleSelection() {
+      document.body.append("You haven't selected anyone!");
+      description.innerHTML = "";
+    }
+
+    function updateMessageWithTitleAndAmount() {
+      let amount = document.getElementById('amount')
+      let title = document.getElementById('title')
+      message["attachment"]["payload"]["elements"][0]["subtitle"] = `They paid £${amount.value} for ${title.value}`;
+    }
+
+    function chooseAndAppendDescription(membersArray) {
+      if (membersArray.length === <%= @group.users.count %>) {
+        description.innerHTML = "";
+        description.insertAdjacentHTML('afterbegin','<p><strong>Split equally</strong> between <strong>all members</strong> of the group</p>');
+      }
+      else if (membersArray.length > 2 && document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
+        const others_amount = membersArray.length - 1
+        description.innerHTML = "";
+        description.insertAdjacentHTML('afterbegin',`<p><strong>Split equally</strong> between <strong>you and ${others_amount} others</strong></p>`);
+      }
+      else if (membersArray.length === 1 && document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
+        const others_amount = membersArray.length - 1
+        description.innerHTML = "";
+        description.insertAdjacentHTML('afterbegin',`<p>You want to make an expense just with yourself? Even a cat doubts that...</p>`);
+      }
+      else if (document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
+        const others_amount = membersArray.length - 1
+        description.innerHTML = "";
+        description.insertAdjacentHTML('afterbegin',`<p><strong>Split equally</strong> between <strong>you and ${others_amount} other</strong></p>`);
+      }
+      else if (membersArray.length > 1) {
+        const others_amount = membersArray.length
+        description.innerHTML = "";
+        description.insertAdjacentHTML('afterbegin',`<p><strong>You are owed everything</strong> by <strong>${others_amount} others</strong> who split it equally</p>`);
+      }
+      else if (membersArray.length === 1) {
+        const others_amount = membersArray.length
+        description.innerHTML = "";
+        description.insertAdjacentHTML('afterbegin',`<p><strong>You are owed everything</strong> by just <strong>${others_amount} person</strong></p>`);
+      }
+      else {
+        description.innerHTML = "";
+        description.insertAdjacentHTML('afterbegin',`<p>Well this isn't going to work is it</p>`);
+      }
+    }
 
   </script>
 <% end %>
