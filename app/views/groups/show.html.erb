@@ -20,29 +20,28 @@
 
 <% else %>
 
-<div class="blue-back flex">
-  <div class="navbar-content text-left">
-    <% if @user_outstanding_with_group.to_f == 0 %>
-      <h4 class="Poppins white heavy">You're all square  <i class="fa fa-thumbs-up" aria-hidden="true"></i></h4>
-    <% elsif @user_outstanding_with_group.to_f < 0 %>
-      <h4 class="Poppins white heavy">Overall, you owe: £<%=sprintf("%.2f", @user_outstanding_with_group.to_f * -1 / 100) %></h4>
-    <% else %>
-      <h4 class="Poppins white heavy">Overall, you are owed: £<%=sprintf("%.2f", @user_outstanding_with_group.to_f / 100) %></h4>
-    <% end %>
+  <!-- NAVBAR SECTION -->
+  <div class="blue-back flex">
+    <div class="navbar-content text-left">
+      <% if @user_outstanding_with_group.to_f == 0 %>
+        <h4 class="Poppins white heavy">You're all square  <i class="fa fa-thumbs-up" aria-hidden="true"></i></h4>
+      <% elsif @user_outstanding_with_group.to_f < 0 %>
+        <h4 class="Poppins white heavy">Overall, you owe: £<%=sprintf("%.2f", @user_outstanding_with_group.to_f * -1 / 100) %></h4>
+      <% else %>
+        <h4 class="Poppins white heavy">Overall, you are owed: £<%=sprintf("%.2f", @user_outstanding_with_group.to_f / 100) %></h4>
+      <% end %>
+    </div>
+    <div class="navbar-profile-pic">
+      <%= link_to user_path(@user) do %>
+        <%= image_tag @user.profile_picture_url, class: "avatar-navbar" %>
+      <% end %>
+    </div>
   </div>
-  <div class="navbar-profile-pic">
-    <%= link_to user_path(@user) do %>
-      <%= image_tag @user.profile_picture_url, class: "avatar-navbar" %>
-    <% end %>
-  </div>
-</div>
 
+  <!-- SECTION TO SHOW GROUP MEMBERS AND OUTSTANDING AMOUNTS -->
   <div class="mobile-container">
     <div class="title-section">
       <h3 class="Poppins heavy">Members</h3>
-      <%# link_to "#", class: "fb-blue" do %>
-        <!-- Settle All <img src="https://png.icons8.com/paper-plane/ios11/30/0084FF" class="paper-plane" > -->
-      <%# end %>
     </div>
   </div>
 
@@ -80,6 +79,7 @@
     </div>
   <% end %>
 
+  <!-- SECTION TO SHOW EXPENSES -->
   <% if @group.expenses.empty? %>
 
     <div class="mobile-container">
@@ -87,9 +87,7 @@
         <h3 class="Poppins heavy">No Expenses Yet</h3>
       </div>
     </div>
-
   <% else %>
-
     <div class="mobile-container">
       <div class="title-section">
         <h3 class="Poppins heavy">Recent Expenses</h3>
@@ -109,20 +107,19 @@
         </div>
       <% end %>
     <% end %>
-
   <% end %>
 
+  <!-- ADD EXPENSE BUTTON -->
     <div class="fixed-btn-section">
       <%= link_to new_expense_path(user_id: @user.id, group_id: @group.id) do %>
         <button class="send-btn Poppins eighteen heavy"><div class="send-inner">Pay for something</div></button>
       <% end %>
     </div>
+    <div class="button-spacer"></div>
 
 <% end %>
 
-<div class="button-spacer"></div>
-
-
+<!-- JAVASCRIPT TO REFRESH PAGE IF YOU ARE THE ONLY MEMBER OF THE GROUP -->
 <% if @group.users.length == 1 %>
   <script>
 
