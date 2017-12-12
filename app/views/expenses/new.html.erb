@@ -103,7 +103,7 @@
                         "subtitle": `They paid £${amount.value} for ${title.value}`,
                         "buttons":[{
                           "type":"web_url",
-                          "url":"<%= ENV['NGROK'] %>/extension/",
+                          "url":"<%= ENV['NGROK'] %>/welcome/",
                           "title":"View the Expense",
                           "messenger_extensions": true
                         }]
@@ -130,7 +130,7 @@
         descriptionForFailedPeopleSelection();
       }
       else {
-        updateMessageWithTitleAndAmount()
+        updateMessageSubtitleWithTitleAndAmount()
         // Begin Facebook's Send to Group Flow
         MessengerExtensions.beginShareFlow(function(share_response) {
           // User dismissed without error, but did they share the message?
@@ -169,7 +169,7 @@
       description.innerHTML = "";
     }
 
-    function updateMessageWithTitleAndAmount() {
+    function updateMessageSubtitleWithTitleAndAmount() {
       let amount = document.getElementById('amount')
       let title = document.getElementById('title')
       message["attachment"]["payload"]["elements"][0]["subtitle"] = `They paid £${amount.value} for ${title.value}`;
