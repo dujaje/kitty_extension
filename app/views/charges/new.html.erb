@@ -1,2 +1,25 @@
-<h1>Charges#new</h1>
-<p>Find me in app/views/charges/new.html.erb</p>
+<% @title = "Pay with stripe" %>
+
+<h1>Pay a stripe</h1>
+
+<div class="mobile-container text-left">
+  <%= form_tag charges_path(@expense) do %>
+    <article>
+      <% if flash[:error].present? %>
+        <div id="error_explanation">
+          <p><%= flash[:error] %></p>
+        </div>
+      <% end %>
+      <label class="amount">
+        <span>You will be paying<%= params[:amount] %></span>
+      </label>
+    </article>
+
+
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-description="A month's subscription"
+            data-amount="params[:amount]"
+            data-locale="auto"></script>
+  <% end %>
+</div>
