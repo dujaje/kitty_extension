@@ -509,6 +509,8 @@
 
     <label class="input-form-label" for="first_name">Settle Amount</label>
     <%= f.input :title, :label => false, as: :file %>
+
+    <label class="input-form-label" for="first_name">Range</label>
   <% end %>
 
   <label class="input-form-label" for="first_name">Who's Involved</label>
@@ -567,17 +569,83 @@
     <h3>Sliders</h3>
   </div>
 
-
+  <p>To be done</p>
 </div>
 
-  <div class="bottom-space"></div>
+<hr>
+
+<div class="container">
+  <div class="title-section">
+    <h3>Buttons</h3>
+  </div>
+  <!-- SEND MESSAGE TO GROUP BUTTONS -->
+    <!-- Can add a div around these with class fixed-btn-section to fix them to bottom of screen -->
+  <%= button_tag type: 'submit', class: "send-btn-primary" do %>
+    <div class="send-inner"><i class="fa fa-plus fa-fw fa-lg" aria-hidden="true"></i>Add Now</div>
+  <% end %>
+  <%= button_tag type: 'submit', class: "send-btn-primary" do %>
+    <div class="send-inner"><i class="fa fa-check fa-fw fa-lg" aria-hidden="true"></i>Confirm</div>
+  <% end %>
+  <%= button_tag type: 'submit', class: "send-btn-warning" do %>
+    <div class="send-inner"><i class="fa fa-times fa-fw fa-lg" aria-hidden="true"></i>Delete</div>
+  <% end %>
+  <%= button_tag type: 'submit', class: "send-btn-info" do %>
+    <div class="send-inner"><img src="https://png.icons8.com/paper-plane/ios11/30/ffffff" class="paper-plane" >Send Now</div>
+  <% end %>
+  <%= button_tag type: 'submit', class: "send-btn-fb" do %>
+    <div class="send-inner"><img src="https://png.icons8.com/paper-plane/ios11/30/ffffff" class="paper-plane" >Send Now</div>
+  <% end %>
+
+  <!-- FIXED BOTTOM RIGHT NAV BUTTON -->
+  <!-- <div class="nbs nbs-fixer">
+    <a href="#" target="_blank" class="nb nbi nbsb0 img"><img src="https://en.gravatar.com/userimage/19193737/76544daf52c94e6f8ca83ca5ab2e7c7d.jpeg"> <span>Send Mail</span></a>
+    <a href="#" class="nb nbi nbsb1">A <span>Create A</span></a>
+    <a href="#" class="nb nbi nbsb2">B <span>Create B</span></a>
+    <a href="#" class="nb nbi nbsb3">C <span>Create C</span></a>
+    <a href="#" class="nb nbi nbsb4">D <span>Create D</span></a>
+    <a class="nb nb-main"> + <span>Create</span></a>
+  </div> -->
+  <div class="container">
+    <div class="floaty">
+      <ul class="floaty-list">
+        <li class="floaty-list-item floaty-list-item--blue">
+          <span class="floaty-list-item-label">Reminder</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="absolute-center">
+              <path d="M0 0h24v24h-24z" fill="none"/>
+              <path d="M22 5.72l-4.6-3.86-1.29 1.53 4.6 3.86 1.29-1.53zm-14.12-2.33l-1.28-1.53-4.6 3.85 1.29 1.53 4.59-3.85zm4.62 4.61h-1.5v6l4.75 2.85.75-1.23-4-2.37v-5.25zm-.5-4c-4.97 0-9 4.03-9 9s4.02 9 9 9c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+          </svg>
+        </li>
+        <li class="floaty-list-item floaty-list-item--green">
+          <span class="floaty-list-item-label">Create or Settle</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="floaty-btn-icon floaty-btn-icon-create absolute-center">
+              <path d="M3 17.25v3.75h3.75l11.06-11.06-3.75-3.75-11.06 11.06zm17.71-10.21c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#fff"/>
+              <path d="M0 0h24v24h-24z" fill="none"/>
+          </svg>
+        </li>
+      </ul>
+      <div class="floaty-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="floaty-btn-icon floaty-btn-icon-plus absolute-center">
+            <path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" fill="#fff"/>
+            <path d="M0 0h24v24h-24z" fill="none"/>
+        </svg>
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="floaty-btn-icon floaty-btn-icon-create absolute-center">
+            <path d="M3 17.25v3.75h3.75l11.06-11.06-3.75-3.75-11.06 11.06zm17.71-10.21c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#fff"/>
+            <path d="M0 0h24v24h-24z" fill="none"/>
+        </svg> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-space"></div>
 
 <script>
+  // BURGER MENU ANIMATION
   let burger = document.querySelector("#burger-menu")
   burger.addEventListener("click", () => {
     burger.classList.toggle("navbar-toggler-icon-rotated")
   })
-
+  // TABS SELECTOR
   const firstTab = document.getElementById("FirstTab");
   firstTab.style.display = "block";
   const firsttab = document.getElementById("firsttab")
@@ -595,4 +663,15 @@
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+  // FIXED NAV BUTTON SELECTOR
+  let floatArea = document.querySelector(".floaty")
+  let floatButton = document.querySelector(".floaty-btn")
+  let floatList = document.querySelector(".floaty-list")
+  floatArea.addEventListener("click", () => {
+    console.log("I'm Clicked")
+    floatArea.classList.toggle("is-active")
+    floatButton.classList.toggle("active-rotate")
+    floatList.classList.toggle("floaty-list-active")
+  })
+
 </script>
