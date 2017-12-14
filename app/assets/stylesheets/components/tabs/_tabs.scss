@@ -4,6 +4,7 @@ div.tab {
     display: flex;
     justify-content: space-around;
     position: relative;
+
 }
 
 /* Style the buttons inside the tab */
@@ -22,6 +23,7 @@ div.tab button {
 .tablinks.active {
   padding-top: 4px;
   border-bottom: 4px solid white;
+  opacity: 0.9;
 }
 
 // /* Style the tab content */

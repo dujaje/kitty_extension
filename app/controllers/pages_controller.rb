@@ -4,6 +4,10 @@ class PagesController < ApplicationController
   end
 
   def components
+    @tabs = ["Groups", "Transactions", "People"]
+    @tabs_second = ["Add", "Settle"]
+    @expense = Expense.new
+    @group = Group.last
   end
 
   # PRODUCTION USED PAGES
