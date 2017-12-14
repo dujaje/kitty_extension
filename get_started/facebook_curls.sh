@@ -14,33 +14,31 @@
 ################################################################################
 ################################################################################
 
-Fitty: EAAKziwfhwZC0BAHQAeah8yC81KVojsb5fJcLSD0g5r9U4COfzR0iExLVOLJ4SZBAV770oTCib9ZBBp3kyX94BkpWSabZByeauAGz5GnRfD1Awt5oZAz1DsYoIcPecIGznqxpe3h5gQzXKEiJMRmJF4YVUaCOMQsuKpeox3fIcZAQZDZD
+Fitty: EAAKziwfhwZC0BAOXDSIcEtbJFOg4FdjLtTZC2V0CfeAERASWihl771iCkm3smqx90k5zmvZAcM14hwPzfaq1Cl59IaNJsZBPNqN2FLW2fiZBd4dqLOeTkBNMcCoIa3hKBZB2q3LR0DclBGPSB6TbdmOMXFrZAbrX8D9TgpvSsZAjIgZDZD
 # this gets all info from fb
-curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whitelisted_domains,payment_settings,target_audience,home_url,account_linking_url,greeting,persistent_menu,get_started&access_token=EAAKziwfhwZC0BACq9bkcyPMfrd249H3TNapPL8gcDyBqykPixjFZANNR3kWb2ZAdEZBiXyQyogIhsHOqDeMmKw8PyLMXiZAM2phZCczLF4YrT9CSpYcj8JM1zIzaJEA2C8pzX3SfoV5ZA317J3WOfepIZARsmSZB9ZCJ7Lg5MqPIpU9QZDZD"
+curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whitelisted_domains,payment_settings,target_audience,home_url,account_linking_url,greeting,persistent_menu,get_started&access_token=EAAKziwfhwZC0BAOXDSIcEtbJFOg4FdjLtTZC2V0CfeAERASWihl771iCkm3smqx90k5zmvZAcM14hwPzfaq1Cl59IaNJsZBPNqN2FLW2fiZBd4dqLOeTkBNMcCoIa3hKBZB2q3LR0DclBGPSB6TbdmOMXFrZAbrX8D9TgpvSsZAjIgZDZD"
 
 # Gets all the whitelisted domain.
 
-curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whitelisted_domains&access_token=EAAKziwfhwZC0BAHQAeah8yC81KVojsb5fJcLSD0g5r9U4COfzR0iExLVOLJ4SZBAV770oTCib9ZBBp3kyX94BkpWSabZByeauAGz5GnRfD1Awt5oZAz1DsYoIcPecIGznqxpe3h5gQzXKEiJMRmJF4YVUaCOMQsuKpeox3fIcZAQZDZD"
-
+curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whitelisted_domains&access_token=EAAKziwfhwZC0BAOXDSIcEtbJFOg4FdjLtTZC2V0CfeAERASWihl771iCkm3smqx90k5zmvZAcM14hwPzfaq1Cl59IaNJsZBPNqN2FLW2fiZBd4dqLOeTkBNMcCoIa3hKBZB2q3LR0DclBGPSB6TbdmOMXFrZAbrX8D9TgpvSsZAjIgZDZD"
 
 # ADAPT this to whitelist domain. "add" != "remove"
 curl -X POST -H "Content-Type: application/json" -d '{
   "setting_type" : "domain_whitelisting",
-  "whitelisted_domains" : ["https://a0bcee0c.ngrok.io/extensoin"],
-  "domain_action_type": "remove"
-}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAKziwfhwZC0BAHQAeah8yC81KVojsb5fJcLSD0g5r9U4COfzR0iExLVOLJ4SZBAV770oTCib9ZBBp3kyX94BkpWSabZByeauAGz5GnRfD1Awt5oZAz1DsYoIcPecIGznqxpe3h5gQzXKEiJMRmJF4YVUaCOMQsuKpeox3fIcZAQZDZD"
-
+  "whitelisted_domains" : ["https://c1a4823d.ngrok.io"],
+  "domain_action_type": "add"
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAKziwfhwZC0BAOXDSIcEtbJFOg4FdjLtTZC2V0CfeAERASWihl771iCkm3smqx90k5zmvZAcM14hwPzfaq1Cl59IaNJsZBPNqN2FLW2fiZBd4dqLOeTkBNMcCoIa3hKBZB2q3LR0DclBGPSB6TbdmOMXFrZAbrX8D9TgpvSsZAjIgZDZD"
 
 # This initiates the home url for Kitty
 curl -X POST -H "Content-Type: application/json" -d ' {
   "home_url" : {
-     "url": "http://c1a4823d.ngrok.io/welcome",
+     "url": "https://c1a4823d.ngrok.io/welcome",
      "webview_height_ratio": "tall",
      "webview_share_button": "hide",
      "in_test":true
   }
 
-}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BAFAcrTBWiJLUPks8R1SjHhIpPPaen53Aoq2TNyFtKzEKDhPxgAVQZCLUrIRN2AFv3IZBQjzJwAZCEKR10hZCIQQKZCg1PNoWMPfqhwxWnLWpE6HVLNuZCEGnkZBJfKnQhkdjy6RtNXJGplZBsyIhzOL2U5NRDz0c3QZDZD"
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BAOXDSIcEtbJFOg4FdjLtTZC2V0CfeAERASWihl771iCkm3smqx90k5zmvZAcM14hwPzfaq1Cl59IaNJsZBPNqN2FLW2fiZBd4dqLOeTkBNMcCoIa3hKBZB2q3LR0DclBGPSB6TbdmOMXFrZAbrX8D9TgpvSsZAjIgZDZD"
 
 # this initaites the greeting
 
@@ -50,7 +48,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
       "locale":"default",
       "text":"Hi there! My name is Kitty and I will help you split your expenses. To start, you can create a kitty in your group chats. Find me here when you want to look at all your expenses."
     }]",
-  }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BACq9bkcyPMfrd249H3TNapPL8gcDyBqykPixjFZANNR3kWb2ZAdEZBiXyQyogIhsHOqDeMmKw8PyLMXiZAM2phZCczLF4YrT9CSpYcj8JM1zIzaJEA2C8pzX3SfoV5ZA317J3WOfepIZARsmSZB9ZCJ7Lg5MqPIpU9QZDZD"
+  }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BAOXDSIcEtbJFOg4FdjLtTZC2V0CfeAERASWihl771iCkm3smqx90k5zmvZAcM14hwPzfaq1Cl59IaNJsZBPNqN2FLW2fiZBd4dqLOeTkBNMcCoIa3hKBZB2q3LR0DclBGPSB6TbdmOMXFrZAbrX8D9TgpvSsZAjIgZDZD"
 
 # This is the get started payload
 
@@ -58,7 +56,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "get_started":{
     "payload":"We are Kitty!"
   }
-}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BACq9bkcyPMfrd249H3TNapPL8gcDyBqykPixjFZANNR3kWb2ZAdEZBiXyQyogIhsHOqDeMmKw8PyLMXiZAM2phZCczLF4YrT9CSpYcj8JM1zIzaJEA2C8pzX3SfoV5ZA317J3WOfepIZARsmSZB9ZCJ7Lg5MqPIpU9QZDZD"
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BAOXDSIcEtbJFOg4FdjLtTZC2V0CfeAERASWihl771iCkm3smqx90k5zmvZAcM14hwPzfaq1Cl59IaNJsZBPNqN2FLW2fiZBd4dqLOeTkBNMcCoIa3hKBZB2q3LR0DclBGPSB6TbdmOMXFrZAbrX8D9TgpvSsZAjIgZDZD"
 
 #This is for the get started page
 
