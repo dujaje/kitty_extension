@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'charges/new'
+
+  get 'charges/create'
+
   # PAGES CONTROLLER
   root :to => "pages#home"
   get 'components', to: 'pages#components'
