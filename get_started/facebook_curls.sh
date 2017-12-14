@@ -14,33 +14,33 @@
 ################################################################################
 ################################################################################
 
-
+Fitty: EAAKziwfhwZC0BAHQAeah8yC81KVojsb5fJcLSD0g5r9U4COfzR0iExLVOLJ4SZBAV770oTCib9ZBBp3kyX94BkpWSabZByeauAGz5GnRfD1Awt5oZAz1DsYoIcPecIGznqxpe3h5gQzXKEiJMRmJF4YVUaCOMQsuKpeox3fIcZAQZDZD
 # this gets all info from fb
 curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whitelisted_domains,payment_settings,target_audience,home_url,account_linking_url,greeting,persistent_menu,get_started&access_token=EAAKziwfhwZC0BACq9bkcyPMfrd249H3TNapPL8gcDyBqykPixjFZANNR3kWb2ZAdEZBiXyQyogIhsHOqDeMmKw8PyLMXiZAM2phZCczLF4YrT9CSpYcj8JM1zIzaJEA2C8pzX3SfoV5ZA317J3WOfepIZARsmSZB9ZCJ7Lg5MqPIpU9QZDZD"
 
 # Gets all the whitelisted domain.
 
-curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whitelisted_domains&access_token=EAAdHTu6J8uMBAJATzQaUGcUvOuGQJ94d7nG5wXaIunLDmtdz0nZBWkd7sK8GSsrXnr9IhFDP1eRRjhVV8QCdxFIUWaWBM4wqte2FKzUSoN8tlXqAEk8Su1uIPdJ2G6DL0bYwn5mscLwxqXJegY2ZCpNhsYqxHZB4BIuOuVvAgZDZD"
+curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whitelisted_domains&access_token=EAAKziwfhwZC0BAHQAeah8yC81KVojsb5fJcLSD0g5r9U4COfzR0iExLVOLJ4SZBAV770oTCib9ZBBp3kyX94BkpWSabZByeauAGz5GnRfD1Awt5oZAz1DsYoIcPecIGznqxpe3h5gQzXKEiJMRmJF4YVUaCOMQsuKpeox3fIcZAQZDZD"
 
 
 # ADAPT this to whitelist domain. "add" != "remove"
 curl -X POST -H "Content-Type: application/json" -d '{
   "setting_type" : "domain_whitelisting",
-  "whitelisted_domains" : ["https://64c53f3c.ngrok.io"],
-  "domain_action_type": "add"
-}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAEWFPF7NhkBAFViz7xRZBOKjtssA5kt0iqZCrYAxK1otWwFH515O7iH6ywewJecJmyZBKmQGFqAhP9KpBG6jLaJfn7SRnAfxDnTvhdYCYteEXA3a6JGCtfrmtGWwx2Mo8JZASIYJjDIHLKohwRb7af06651bOs52NuM3bJYQQZDZD"
+  "whitelisted_domains" : ["https://a0bcee0c.ngrok.io/extensoin"],
+  "domain_action_type": "remove"
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAKziwfhwZC0BAHQAeah8yC81KVojsb5fJcLSD0g5r9U4COfzR0iExLVOLJ4SZBAV770oTCib9ZBBp3kyX94BkpWSabZByeauAGz5GnRfD1Awt5oZAz1DsYoIcPecIGznqxpe3h5gQzXKEiJMRmJF4YVUaCOMQsuKpeox3fIcZAQZDZD"
 
 
 # This initiates the home url for Kitty
 curl -X POST -H "Content-Type: application/json" -d ' {
   "home_url" : {
-     "url": "https://64c53f3c.ngrok.io/welcome",
+     "url": "http://c1a4823d.ngrok.io/welcome",
      "webview_height_ratio": "tall",
      "webview_share_button": "hide",
      "in_test":true
   }
 
-}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAEWFPF7NhkBAFViz7xRZBOKjtssA5kt0iqZCrYAxK1otWwFH515O7iH6ywewJecJmyZBKmQGFqAhP9KpBG6jLaJfn7SRnAfxDnTvhdYCYteEXA3a6JGCtfrmtGWwx2Mo8JZASIYJjDIHLKohwRb7af06651bOs52NuM3bJYQQZDZD"
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BAFAcrTBWiJLUPks8R1SjHhIpPPaen53Aoq2TNyFtKzEKDhPxgAVQZCLUrIRN2AFv3IZBQjzJwAZCEKR10hZCIQQKZCg1PNoWMPfqhwxWnLWpE6HVLNuZCEGnkZBJfKnQhkdjy6RtNXJGplZBsyIhzOL2U5NRDz0c3QZDZD"
 
 # this initaites the greeting
 
