@@ -1,87 +1,131 @@
+<!-- Webpage Title -->
 <% @title = "#{@user.first_name}'s new expense" %>
 
-<!-- EXPENSE TITLE INPUT -->
-<div class="small-spacer"></div>
-<div class="mobile-container text-left">
-  <h4 class="Poppins heavy">What did you pay for?</h4>
-  <%= simple_form_for [ @expense ] do |f| %>
-  <% payment_title_arr = ["Sunday Lunch", "British Gas", "Beers for the Boys", "Cinema and Crisps", "Pizza", "Council Tax", "Cheeky Nandos", "House Bills"] %>
-  <%= f.input :title, :class => 'Poppins heavy lighter', input_html: { id: "title"}, :label => false, placeholder: "i.e #{payment_title_arr.sample}" %>
+<!-- ##################################################################################################################### -->
+<!-- Add something Navbar -->
+<!-- ##################################################################################################################### -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-background">
+  <%= link_to group_path(@group, user_id: @user.id, group_id: @group.id) do %>
+    <i class="fa fa-times color-white navigation-link" aria-hidden="true"></i>
+  <% end %>
+  <h3 class="navbar-brand no-margin" href="#"><%= @nav_titles[0] %></h3>
+  <a href="" class="navigation-link">
+    <!-- <i class="fa fa-check color-white navigation-link" aria-hidden="true"></i> -->
+  </a>
+</nav>
 
+<!-- ##################################################################################################################### -->
+<!-- Tabs Bar -->
+<!-- ##################################################################################################################### -->
+<div class="tab mb-4">
+  <button class="tablinks" id="firsttab" onclick="openCity(event, 'FirstTab')"><%= @tabs[0] %></button>
+  <% @tabs.each_with_index do |tab, index| %>
+    <% if index != 0 %>
+    <button class="tablinks" onclick="openCity(event, '<%= tab %>')"><%= tab %></button>
+    <% end %>
+  <% end %>
 </div>
 
-  <!-- EXPENSE AMOUNT INPUT -->
-  <div class="mobile-container text-left">
-    <h4 class="Poppins heavy">How much did you pay?</h4>
+<!-- ##################################################################################################################### -->
+<!-- Add Expense -->
+<!-- ##################################################################################################################### -->
+<div id="FirstTab" class="tabcontent">
+  <div class="container">
+    <%= simple_form_for [ @expense ] do |f| %>
+
+    <!-- Title New Expense -->
+    <% payment_title_arr = ["Sunday Lunch", "British Gas", "Beers for the Boys", "Cinema and Crisps", "Pizza", "Council Tax", "Cheeky Nandos", "House Bills"] %>
+    <label class="input-form-label" for="first_name">What did you pay for?</label>
+    <%= f.input :title, :class => 'input-form-item', input_html: { id: "title"}, :label => false, placeholder: "#{payment_title_arr.sample}" %>
+
+    <!-- New Expense Amount -->
     <% @expense.amount_cents = nil %>
+    <label class="input-form-label" for="first_name">What did you pay for?</label>
+    <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'input-form-item', :label => false, placeholder: "£0.00" %>
 
-    <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'Poppins heavy lighter', :label => false, placeholder: "£0.00" %>
-  </div>
-
-  <!-- SIDE SCROLLER + DESCRIPTION -->
-  <div class="mobile-container text-left">
-    <h4 class="Poppins heavy">Tap to split between...</h4>
-  </div>
-
-  <div class="mobile-container text-left">
+    <!-- Split Between -->
+    <label class="input-form-label" for="first_name">Who's Involved</label>
     <div class="side-scroller-description side-scroller-base text-center">
-      <% if @involved_group_string %>
-        <p><span style="color:#a94442">You forgot to select people!</span></p>
-      <% else %>
-        <p>Go on then, who bought something?</p>
-      <% end %>
+      <p>Go on then, who bought something?</p>
     </div>
-    <div class="testimonial-group side-scroller-base">
-    <div class="row">
-      <div class="col-xs-3 user-self">
-        <div class="user-selector-area text-center current-user">
-          <%= image_tag @user.profile_picture_url, class: "avatar-scroll", data: { id: @user.id } %>
-          <p class="under-avatar-text"><%= @user.first_name %> (Me)</p>
-        </div>
-      </div>
-      <% @group.users.each do |member| %>
-        <% if member == @user %>
-          <% next %>
-        <% end %>
-        <div class="col-xs-3">
+    <% if @group.users.length <= 4 %>
+      <div class="row">
+        <div class="col">
           <div class="user-selector-area text-center">
-            <%= image_tag member.profile_picture_url, class: "avatar-scroll", data: { id: member.id } %>
-            <p class="under-avatar-text"><%= member.first_name %></p>
+            <%= image_tag @user.profile_picture_url, class: "avatar-large", data: { id: @user.id } %>
+            <p class="under-avatar-text"><%= @user.first_name %> (Me)</p>
           </div>
         </div>
-      <% end %>
+        <% @group.users.each do |member| %>
+          <% if member == @user %>
+            <% next %>
+          <% end %>
+          <div class="col">
+            <div class="user-selector-area text-center">
+              <%= image_tag member.profile_picture_url, class: "avatar-large", data: { id: member.id } %>
+              <p class="under-avatar-text"><%= member.first_name %></p>
+            </div>
+          </div>
+        <% end %>
       </div>
-    </div>
-  </div>
-
-  <!-- EXPENSE LOCATION INPUT -->
-  <div class="mobile-container text-left">
-    <h4 class="Poppins heavy">Where was this?</h4>
-    <% locations_arr = ["Wagamama", "The Sloaney Pony", "Picturehouse", "Le Rac Shak", "PingPong Dim Sum", "Nandos", "Theater"] %>
-    <%= f.input :location, :class => 'Poppins heavy lighter', :label => false, placeholder: "i.e. #{locations_arr.sample}" %>
-  </div>
-
-  <!-- EXPENSE DESCRIPTION INPUT -->
-  <div class="mobile-container text-left">
-    <h4 class="Poppins heavy">More Information:</h4>
-    <% descriptions_arr = ["Jamie's Birthday", "Open Mic Night", "Holiday on Mallorca", "Interrailing with Charlotte", "Weekend trip to Wonderland", "Deliveroo"] %>
-    <%= f.input :description, :class => 'Poppins heavy lighter form-item', :label => false, :type => "text", placeholder: "i.e. #{descriptions_arr.sample} " %>
-  </div>
-
-  <!-- HIDDEN INPUTS -->
-  <%= f.input :involved_group, as: :hidden, input_html: { value: "", id: "involved_group_field" } %>
-  <%= f.hidden_field :user_id, value: @user.id %>
-  <%= f.hidden_field :to_pay_id, value: @user.id %>
-  <%= f.hidden_field :group_id, value: @group.id %>
-  </div>
-
-  <!-- INPUT BUTTON -->
-  <!-- <div class="fixed-btn-section"> -->
-    <%= button_tag type: 'submit', class: "send-btn Poppins eighteen heavy" do %>
-      <div class="send-inner"><img src="https://png.icons8.com/paper-plane/ios11/30/ffffff" class="paper-plane" >Add now</div>
+    <% else %>
+      <div class="testimonial-group side-scroller-base">
+        <div class="row">
+          <div class="col-3 user-self">
+            <div class="user-selector-area text-center current-user">
+              <%= image_tag @user.profile_picture_url, class: "avatar-large", data: { id: @user.id } %>
+              <p class="under-avatar-text"><%= @user.first_name %> (Me)</p>
+            </div>
+          </div>
+          <% @group.users.each do |member| %>
+            <% if member == @user %>
+              <% next %>
+            <% end %>
+            <div class="col-3">
+              <div class="user-selector-area text-center">
+                <%= image_tag member.profile_picture_url, class: "avatar-large", data: { id: member.id } %>
+                <p class="under-avatar-text"><%= member.first_name %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  <!-- </div> -->
-<% end %>
+
+    <!-- Location of Expense (Optional) -->
+    <label class="input-form-label" for="first_name">Where was it?</label>
+    <% locations_arr = ["Wagamama", "The Sloaney Pony", "Picturehouse", "Le Rac Shak", "PingPong Dim Sum", "Nandos", "Theater"] %>
+    <%= f.input :location, :class => 'input-form-item', :label => false, placeholder: "#{locations_arr.sample}" %>
+
+    <!-- Description of Expense (Optional) -->
+    <label class="input-form-label" for="first_name">Description</label>
+    <% descriptions_arr = ["Jamie's Birthday", "Open Mic Night", "Holiday on Mallorca", "Interrailing with Charlotte", "Weekend trip to Wonderland", "Deliveroo"] %>
+    <%= f.input :description, :class => 'input-form-item', :label => false, :type => "text", placeholder: "#{descriptions_arr.sample} " %>
+
+    <!-- Hidden Inputs -->
+    <%= f.input :involved_group, as: :hidden, input_html: { value: "", id: "involved_group_field" } %>
+    <%= f.hidden_field :user_id, value: @user.id %>
+    <%= f.hidden_field :to_pay_id, value: @user.id %>
+    <%= f.hidden_field :group_id, value: @group.id %>
+
+    <!-- Input Button (to be removed) -->
+    <%= button_tag type: 'submit', class: "navbar-tick-btn" do %>
+      <i class="fa fa-check color-white navigation-link" aria-hidden="true"></i>
+    <% end %>
+    <!-- Simple Form End -->
+    <% end %>
+  </div>
+</div>
+
+<!-- ##################################################################################################################### -->
+<!-- Settle Expense -->
+<!-- ##################################################################################################################### -->
+<div id="Settle" class="tabcontent" style="display: none;">
+  <p>Settle</p>
+</div>
+
+  </div>
+
 
 <div class="button-spacer"></div>
 
@@ -91,7 +135,7 @@
   // ###########################################################################################################
   // Page Wide Variables:
   // ###########################################################################################################
-    let avatars = document.querySelectorAll(".avatar-scroll");
+    let avatars = document.querySelectorAll(".avatar-large");
     let description = document.querySelector(".side-scroller-description");
     let message = {
                   "attachment":{
@@ -105,15 +149,46 @@
                           "type":"web_url",
                           "url":"<%= ENV['NGROK'] %>/welcome/",
                           "title":"View the Expense",
+                          "webview_height_ratio": "full",
                           "messenger_extensions": true
                         }]
                       }]
                     }
                   }
                 };
+    const firstTab = document.getElementById("FirstTab");
+    const firsttab = document.getElementById("firsttab")
+    const tablinks = document.getElementsByClassName("tablinks");
+
   // ###########################################################################################################
   // Output Code
   // ###########################################################################################################
+  // Tabs Selector
+    // Display first tab initially:
+    firstTab.style.display = "block";
+    firsttab.className += " active";
+    // Change Navbar Title as Tabs Change
+    tablinks[0].addEventListener("click", () => {
+      document.querySelector(".navbar-brand").innerHTML = "Add an expense"
+    })
+    tablinks[1].addEventListener("click", () => {
+      document.querySelector(".navbar-brand").innerHTML = "Settle an expense"
+    })
+    // Change Displayed Tab as Tabs Change
+    function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+          tablinks = document.getElementsByClassName("tablinks");
+      }
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
   // Update Array of Members Involved and Avatar Highlighting
     avatars.forEach((avatar) => {
       avatar.addEventListener("click", () => {
@@ -124,6 +199,7 @@
         chooseAndAppendDescription(membersArray);
       })
     })
+
   // On click of send button, success and failure
     document.querySelector(".send-btn").addEventListener("click", () => {
       if (document.getElementById("involved_group_field").value === "" || document.getElementById("involved_group_field").value === ["<%= @user.id %>"]) {
@@ -152,6 +228,7 @@
         // End Facebook's Send to Group Flow
       }
     });
+
   // ###########################################################################################################
   // Supporter Functions
   // ###########################################################################################################
@@ -178,32 +255,32 @@
     function chooseAndAppendDescription(membersArray) {
       if (membersArray.length === <%= @group.users.count %>) {
         description.innerHTML = "";
-        description.insertAdjacentHTML('afterbegin','<p><strong>Split equally</strong> between <strong>all members</strong> of the group</p>');
+        description.insertAdjacentHTML('afterbegin','<p><strong class="color-primary">Split equally</strong> between <strong class="color-primary">all members</strong> of the group</p>');
       }
       else if (membersArray.length > 2 && document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
         const others_amount = membersArray.length - 1
         description.innerHTML = "";
-        description.insertAdjacentHTML('afterbegin',`<p><strong>Split equally</strong> between <strong>you and ${others_amount} others</strong></p>`);
+        description.insertAdjacentHTML('afterbegin',`<p><strong class="color-primary">Split equally</strong> between <strong class="color-primary">you and ${others_amount} others</strong></p>`);
       }
       else if (membersArray.length === 1 && document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
         const others_amount = membersArray.length - 1
         description.innerHTML = "";
-        description.insertAdjacentHTML('afterbegin',`<p>You want to make an expense just with yourself? Even a cat doubts that...</p>`);
+        description.insertAdjacentHTML('afterbegin',`<p class="no-margin">You want to make an expense just with yourself? Even a cat doubts that...</p>`);
       }
       else if (document.getElementById("involved_group_field").value.includes(<%= @user.id.to_s %>)) {
         const others_amount = membersArray.length - 1
         description.innerHTML = "";
-        description.insertAdjacentHTML('afterbegin',`<p><strong>Split equally</strong> between <strong>you and ${others_amount} other</strong></p>`);
+        description.insertAdjacentHTML('afterbegin',`<p><strong class="color-primary">Split equally</strong> between <strong class="color-primary">you and ${others_amount} other</strong></p>`);
       }
       else if (membersArray.length > 1) {
         const others_amount = membersArray.length
         description.innerHTML = "";
-        description.insertAdjacentHTML('afterbegin',`<p><strong>You are owed everything</strong> by <strong>${others_amount} others</strong> who split it equally</p>`);
+        description.insertAdjacentHTML('afterbegin',`<p><strong class="color-primary">You are owed everything</strong> by <strong class="color-primary">${others_amount} others</strong> who split it equally</p>`);
       }
       else if (membersArray.length === 1) {
         const others_amount = membersArray.length
         description.innerHTML = "";
-        description.insertAdjacentHTML('afterbegin',`<p><strong>You are owed everything</strong> by just <strong>${others_amount} person</strong></p>`);
+        description.insertAdjacentHTML('afterbegin',`<p><strong class="color-primary">You are owed everything</strong> by just <strong class="color-primary">${others_amount} person</strong></p>`);
       }
       else {
         description.innerHTML = "";

@@ -35,7 +35,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 curl -X POST -H "Content-Type: application/json" -d ' {
   "home_url" : {
      "url": "https://64c53f3c.ngrok.io/welcome",
-     "webview_height_ratio": "tall",
+     "webview_height_ratio": "full",
      "webview_share_button": "hide",
      "in_test":true
   }

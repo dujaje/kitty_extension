@@ -19,6 +19,9 @@
 .side-scroller-description {
   margin: 0;
 }
+.side-scroller-description p {
+  margin-bottom: 12px;
+}
 
 // .vertical-line {
 //   border-right: 1px solid rgba(0,0,0,0.05);
@@ -40,7 +43,9 @@
 .current-user {
 }
 
-.under-avatar-text {
+p.under-avatar-text {
+  margin-top: 6px;
+  margin-bottom: 12px;
   font-size: 12px;
 }
 // .col-xs-4 { background: $brand-primary; }

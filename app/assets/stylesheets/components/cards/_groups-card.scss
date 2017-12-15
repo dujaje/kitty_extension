@@ -1,5 +1,6 @@
 .groups-card-img-top {
   width: 100%;
+  background-size: 100%;
   border-top-left-radius: .625rem;
   border-top-right-radius: .625rem;
   vertical-align: middle;
@@ -19,6 +20,8 @@
   flex-grow: 1;
   border-top-left-radius: .625rem;
   border-top-right-radius: .625rem;
+  background-position: center;
+  background-size: 120% 100%;
 }
 
 .group-card-members-grid-2-child:first-child {
@@ -45,6 +48,8 @@
   border-top-right-radius: 0rem;
   border-top-left-radius: .625rem;
   border-right: 2px solid white;
+  background-position: center;
+  background-size: 120% 100%;
 }
 .group-card-members-grid-3-child-b {
   grid-column-start: 2;
@@ -55,6 +60,7 @@
   border-top-right-radius: .625rem;
   border-left: 2px solid white;
   border-bottom: 2px solid white;
+  background-size: 100%;
 }
 .group-card-members-grid-3-child-c {
   grid-column-start: 2;
@@ -65,6 +71,7 @@
   border-top-left-radius: 0rem;
   border-left: 2px solid white;
   border-top: 2px solid white;
+  background-size: 100%;
 }
 
 // 4 Person Group Photo Grid
@@ -77,6 +84,7 @@
   border-top-left-radius: .625rem;
   border-right: 2px solid white;
   border-bottom: 2px solid white;
+  background-size: 100%;
 }
 .group-card-members-grid-4-child-b {
   grid-column-start: 1;
@@ -87,6 +95,7 @@
   border-top-left-radius: 0rem;
   border-right: 2px solid white;
   border-top: 2px solid white;
+  background-size: 100%;
 }
 .group-card-members-grid-4-child-c {
   grid-column-start: 2;
@@ -97,6 +106,7 @@
   border-top-right-radius: .625rem;
   border-left: 2px solid white;
   border-bottom: 2px solid white;
+  background-size: 100%;
 }
 .group-card-members-grid-4-child-d {
   grid-column-start: 2;
@@ -107,4 +117,5 @@
   border-top-left-radius: 0rem;
   border-left: 2px solid white;
   border-top: 2px solid white;
+  background-size: 100%;
 }

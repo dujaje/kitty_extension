@@ -1,5 +1,7 @@
 class ExpensesController < ApplicationController
   def new
+    @nav_titles = ["Add an expense", "Settle an expense"]
+    @tabs = ["Add", "Settle"]
     @expense = Expense.new
     @user = User.find(params[:user_id])
     @group = Group.find(params[:group_id])
