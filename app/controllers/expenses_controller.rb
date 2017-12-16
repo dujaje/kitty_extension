@@ -48,7 +48,6 @@ class ExpensesController < ApplicationController
       equal_splitter(@expense, @involved_group_string)
       redirect_to expense_path(@expense, user_id: @user.id, group_id: @group.id)
     else
-      raise
       render :new
     end
   end
