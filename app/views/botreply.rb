@@ -17,6 +17,7 @@ def reply(sender)
                                       "type": "web_url",
                                       "url": "#{ENV['NGROK']}/welcome",
                                       "title": "Open Kitty",
+                                      "webview_height_ratio": "full",
                                       "messenger_extensions": true
                                     }],
                                   }]

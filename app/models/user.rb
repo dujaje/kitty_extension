@@ -39,6 +39,23 @@ class User < ApplicationRecord
     end
 
     return user_owed_total - user_owes_total
+  end
 
+  def outstanding_with_group(group)
+    user_owes_splits = Split.joins(:expense).where(user_id: self.id).where(expenses: {group_id: group.id})
+    user_owed_splits = Split.joins(:expense).where(expenses: {user_id: self.id}).where(expenses: {group_id: group.id})
+
+    user_owes_total = 0
+    user_owed_total = 0
+
+    user_owed_splits.each do |split|
+      user_owed_total += split.amount_cents
+    end
+
+    user_owes_splits.each do |split|
+      user_owes_total += split.amount_cents
+    end
+
+    return user_owed_total - user_owes_total
   end
 end

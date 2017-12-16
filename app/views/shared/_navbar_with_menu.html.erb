@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-dark navbar-background">
+  <% if @params_controller != "groups" && @params_action != "show" %>
+    <% if @group != "no_group" %>
+      <%= link_to group_path(@group, user_id: @user.id, group_id: @group.id) do %>
+        <i class="fa fa-chevron-left fa-md color-white navigation-link" aria-hidden="true"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+  <h3 class="navbar-brand no-margin" href="#"><%= @nav_title %></h3>
+  <a class="navbar-toggler collapsed no-border no-padding" data-toggle="collapse" data-target="#navbarNavDropdown-1" aria-controls="navbarNavDropdown-1" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fa fa-bars color-white" id="burger-menu" aria-hidden="true"></i>
+  </a>
+  <div class="navbar-collapse collapse" id="navbarNavDropdown-1" style="">
+    <ul class="navbar-nav mr-auto">
+      <% if @group != "no_group" %>
+        <li class="nav-item active">
+          <%= link_to group_path(@group, user_id: @user.id, group_id: @group.id) do %>
+            <p class="color-white small-padding no-margin"><i class="fa fa-users fa-fw color-white" aria-hidden="true"></i>Group</p>
+          <% end %>
+        </li>
+      <% end %>
+      <% if @group != "no_group" %>
+        <li class="nav-item">
+          <%= link_to user_path(@user, user_id: @user.id, group_id: @group.id) do %>
+            <p class="color-white small-padding no-margin"><i class="fa fa-tachometer fa-fw color-white" aria-hidden="true"></i>Dashboard</p>
+          <% end %>
+        </li>
+      <% else %>
+        <%= link_to user_path(@user, user_id: @user.id) do %>
+          <p class="color-white small-padding no-margin"><i class="fa fa-tachometer fa-fw color-white" aria-hidden="true"></i>Dashboard</p>
+        <% end %>
+      <% end %>
+      <!-- <div class="dropdown-divider"></div>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> Settings</a>
+      </li> -->
+    </ul>
+  </div>
+</nav>
+
+<script>
+// BURGER MENU ANIMATION
+let burger = document.querySelector("#burger-menu")
+burger.addEventListener("click", () => {
+  burger.classList.toggle("navbar-toggler-icon-rotated")
+})
+</script>
