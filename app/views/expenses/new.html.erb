@@ -40,7 +40,7 @@
 
     <!-- New Expense Amount -->
     <% @expense.amount_cents = nil %>
-    <label class="input-form-label" for="first_name">What did you pay for?</label>
+    <label class="input-form-label" for="first_name">How much did you pay?</label>
     <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'input-form-item', :label => false, placeholder: "£0.00" %>
 
     <!-- Split Between -->
@@ -52,7 +52,7 @@
       <div class="row">
         <div class="col">
           <div class="user-selector-area text-center">
-            <%= image_tag @user.profile_picture_url, class: "avatar-large", data: { id: @user.id } %>
+            <%= image_tag @user.profile_picture_url, class: "avatar-large avatar-new", data: { id: @user.id } %>
             <p class="under-avatar-text"><%= @user.first_name %> (Me)</p>
           </div>
         </div>
@@ -62,7 +62,7 @@
           <% end %>
           <div class="col">
             <div class="user-selector-area text-center">
-              <%= image_tag member.profile_picture_url, class: "avatar-large", data: { id: member.id } %>
+              <%= image_tag member.profile_picture_url, class: "avatar-large avatar-new", data: { id: member.id } %>
               <p class="under-avatar-text"><%= member.first_name %></p>
             </div>
           </div>
@@ -73,7 +73,7 @@
         <div class="row">
           <div class="col-3 user-self">
             <div class="user-selector-area text-center current-user">
-              <%= image_tag @user.profile_picture_url, class: "avatar-large", data: { id: @user.id } %>
+              <%= image_tag @user.profile_picture_url, class: "avatar-large avatar-new", data: { id: @user.id } %>
               <p class="under-avatar-text"><%= @user.first_name %> (Me)</p>
             </div>
           </div>
@@ -83,7 +83,7 @@
             <% end %>
             <div class="col-3">
               <div class="user-selector-area text-center">
-                <%= image_tag member.profile_picture_url, class: "avatar-large", data: { id: member.id } %>
+                <%= image_tag member.profile_picture_url, class: "avatar-large avatar-new", data: { id: member.id } %>
                 <p class="under-avatar-text"><%= member.first_name %></p>
               </div>
             </div>
@@ -121,13 +121,61 @@
 <!-- Settle Expense -->
 <!-- ##################################################################################################################### -->
 <div id="Settle" class="tabcontent" style="display: none;">
-  <p>Settle</p>
-</div>
+  <div class="container">
+    <!-- Pay Back Person Selector -->
+    <label class="input-form-label" for="first_name">Who do you want to settle with?</label>
+    <% if @group.users.length <= 5 %>
+        <% @group.users.each do |member| %>
+          <% if member == @user %>
+            <% next %>
+          <% end %>
+          <div class="col">
+            <div class="user-selector-area text-center">
+              <%= image_tag member.profile_picture_url, class: "avatar-large avatar-settle", data: { id: member.id } %>
+              <p class="under-avatar-text"><%= member.first_name %></p>
+            </div>
+          </div>
+        <% end %>
+    <% else %>
+      <div class="testimonial-group side-scroller-base">
+        <div class="row">
+          <% @group.users.each do |member| %>
+            <% if member == @user %>
+              <% next %>
+            <% end %>
+            <div class="col-3">
+              <div class="user-selector-area text-center">
+                <%= image_tag member.profile_picture_url, class: "avatar-large avatar-settle", data: { id: member.id } %>
+                <p class="under-avatar-text"><%= member.first_name %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
 
+    <%= simple_form_for [ @expense ] do |f| %>
+        <!-- Choose Amount to Settle -->
+        <% @expense.amount_cents = nil %>
+        <label class="input-form-label" for="first_name">How much did you pay?</label>
+        <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'input-form-item', :label => false, placeholder: "£0.00" %>
+
+        <%= f.hidden_field :title, value: "#{@user.first_name} paid back" %>
+        <%= f.hidden_field :description, value: "Settled" %>
+        <%= f.hidden_field :user_id, value: @user.id %>
+        <%# f.input :settle_group, as: :hidden, input_html: { value: "", id: "settle_group_field" } %>
+        <%= f.hidden_field :settle_group, value: "#{@user.id}" %>
+        <%= f.input :to_pay_id, as: :hidden, input_html: { value: "", id: "to_pay_field" } %>
+        <%= f.hidden_field :location, value: "" %>
+        <%= f.hidden_field :group_id, value: @group.id %>
+      </div>
+
+      <%= button_tag type: '#', class: "navbar-tick-btn" do %>
+        <i class="fa fa-check color-white navigation-link" aria-hidden="true"></i>
+      <% end %>
+    <% end %>
   </div>
-
-
-<div class="button-spacer"></div>
+</div>
 
 <!-- JAVASCRIPT FOR THE BUTTON TO SEND TO GROUP AND CLOSE BROWSER -->
 <% content_for(:after_js) do %>
@@ -135,7 +183,8 @@
   // ###########################################################################################################
   // Page Wide Variables:
   // ###########################################################################################################
-    let avatars = document.querySelectorAll(".avatar-large");
+    let avatars = document.querySelectorAll(".avatar-new");
+    let settleAvatars = document.querySelectorAll(".avatar-settle");
     let description = document.querySelector(".side-scroller-description");
     let message = {
                   "attachment":{
@@ -189,9 +238,12 @@
       evt.currentTarget.className += " active";
     }
 
-  // Update Array of Members Involved and Avatar Highlighting
+  // Update Array of Members Involved and Avatar Highlighting for New Expense
     avatars.forEach((avatar) => {
       avatar.addEventListener("click", () => {
+        settleAvatars.forEach((settleAvatar) => {
+            settleAvatar.classList = "avatar-large avatar-settle"
+        })
         avatar.classList.toggle("avatar-highlighted");
         let membersArray = [];
         alterMembersArray(membersArray);
@@ -200,8 +252,30 @@
       })
     })
 
+  // Update Array of Members Involved and Avatar Highlighting for Settle
+    settleAvatars.forEach((avatar) => {
+      avatar.addEventListener("click", () => {
+        avatars.forEach((newAvatar) => {
+          newAvatar.classList = "avatar-large avatar-new"
+        })
+        settleAvatars.forEach((settleAvatar) => {
+          if (settleAvatar === avatar) {
+
+          }
+          else {
+            settleAvatar.classList = "avatar-large avatar-settle"
+          }
+        })
+        avatar.classList.toggle("avatar-highlighted");
+        let membersArray = [];
+        alterSettleArray(membersArray);
+        // document.getElementById("settle_group_field").value = `<%# @user.id %>, ${membersArray}`;
+        document.getElementById("to_pay_field").value = `${membersArray}`;
+      })
+    })
+
   // On click of send button, success and failure
-    document.querySelector(".send-btn").addEventListener("click", () => {
+    document.querySelector(".navbar-tick-btn").addEventListener("click", () => {
       if (document.getElementById("involved_group_field").value === "" || document.getElementById("involved_group_field").value === ["<%= @user.id %>"]) {
         descriptionForFailedPeopleSelection();
       }
@@ -234,6 +308,15 @@
   // ###########################################################################################################
     function alterMembersArray(membersArray) {
       avatars.forEach((avatar) => {
+        if (avatar.classList.contains("avatar-highlighted")) {
+          membersArray.push(avatar.dataset.id);
+        }
+      })
+      return membersArray;
+    }
+
+    function alterSettleArray(membersArray) {
+      settleAvatars.forEach((avatar) => {
         if (avatar.classList.contains("avatar-highlighted")) {
           membersArray.push(avatar.dataset.id);
         }

@@ -146,6 +146,7 @@
 <div id="People" class="tabcontent" style="display: none;">
   <div class="container">
 
+  <!-- You are owed section -->
     <% unless @users_user_owed_by.empty? %>
       <div class="title-section">
         <h2>You are owed</h2>
@@ -171,6 +172,9 @@
       <% end %>
     <% end %>
 
+  <div class="section-spacer"></div>
+
+  <!-- You Owe Section -->
     <% unless @users_user_owes.empty? %>
       <div class="title-section">
         <h2>You owe</h2>
