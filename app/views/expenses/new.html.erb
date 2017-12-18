@@ -35,16 +35,16 @@
 
     <!-- Title New Expense -->
     <% payment_title_arr = ["Sunday Lunch", "British Gas", "Beers for the Boys", "Cinema and Crisps", "Pizza", "Council Tax", "Cheeky Nandos", "House Bills"] %>
-    <label class="input-form-label" for="first_name">What did you pay for?</label>
+    <label class="input-form-label" for="first_name">What did you pay for? (required)</label>
     <%= f.input :title, :class => 'input-form-item', input_html: { id: "title"}, :label => false, placeholder: "#{payment_title_arr.sample}" %>
 
     <!-- New Expense Amount -->
     <% @expense.amount_cents = nil %>
-    <label class="input-form-label" for="first_name">How much did you pay?</label>
+    <label class="input-form-label" for="first_name">How much did you pay? (required)</label>
     <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'input-form-item', :label => false, placeholder: "£0.00" %>
 
     <!-- Split Between -->
-    <label class="input-form-label" for="first_name">Who's Involved</label>
+    <label class="input-form-label" for="first_name">Who's Involved? (required)</label>
     <div class="side-scroller-description side-scroller-base text-center">
       <p>Go on then, who bought something?</p>
     </div>
@@ -98,7 +98,7 @@
     <%= f.input :location, :class => 'input-form-item', :label => false, placeholder: "#{locations_arr.sample}" %>
 
     <!-- Description of Expense (Optional) -->
-    <label class="input-form-label" for="first_name">Description</label>
+    <label class="input-form-label" for="first_name">Description?</label>
     <% descriptions_arr = ["Jamie's Birthday", "Open Mic Night", "Holiday on Mallorca", "Interrailing with Charlotte", "Weekend trip to Wonderland", "Deliveroo"] %>
     <%= f.input :description, :class => 'input-form-item', :label => false, :type => "text", placeholder: "#{descriptions_arr.sample} " %>
 
@@ -160,11 +160,11 @@
         <label class="input-form-label" for="first_name">How much did you pay?</label>
         <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'input-form-item', :label => false, placeholder: "£0.00" %>
 
-        <%= f.hidden_field :title, value: "#{@user.first_name} paid back" %>
+        <%= f.hidden_field :title, value: "#{@user.first_name} settled up" %>
         <%= f.hidden_field :description, value: "Settled" %>
         <%= f.hidden_field :user_id, value: @user.id %>
-        <%# f.input :settle_group, as: :hidden, input_html: { value: "", id: "settle_group_field" } %>
-        <%= f.hidden_field :settle_group, value: "#{@user.id}" %>
+        <%= f.input :settle_group, as: :hidden, input_html: { value: "", id: "settle_group_field" } %>
+        <%# f.hidden_field :settle_group, value: "#{@user.id}" %>
         <%= f.input :to_pay_id, as: :hidden, input_html: { value: "", id: "to_pay_field" } %>
         <%= f.hidden_field :location, value: "" %>
         <%= f.hidden_field :group_id, value: @group.id %>
@@ -269,7 +269,7 @@
         avatar.classList.toggle("avatar-highlighted");
         let membersArray = [];
         alterSettleArray(membersArray);
-        // document.getElementById("settle_group_field").value = `<%# @user.id %>, ${membersArray}`;
+        document.getElementById("settle_group_field").value = `${membersArray}`;
         document.getElementById("to_pay_field").value = `${membersArray}`;
       })
     })

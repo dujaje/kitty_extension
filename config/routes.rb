@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'settle', to: 'expenses#settle'
   # USERS CONTROLLERS
   resources :users, only: [:show]
+  get '/transactions/:id', to: 'users#transactions', as: 'user_transactions'
 
 # WEBHOOKS FOLDER, WEBHOOKS CONTROLLER
   get 'webhooks', to: 'webhooks#messenger'

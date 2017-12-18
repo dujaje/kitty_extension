@@ -18,6 +18,45 @@
 
 <!-- Groups Body -->
 <div id="FirstTab" class="tabcontent">
+  <div class="profile-header text-center">
+    <%= image_tag @user.profile_picture_url, class: "avatar-profile-picture" %>
+    <h2 class="color-white"><%= @user.first_name %> <%= @user.last_name %></h2>
+  </div>
+  <div class="container">
+    <div class="title-section">
+      <h4>Overview</h4>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        tbc
+      </div>
+    </div>
+    <div class="card-row-space"></div>
+
+    <div class="title-section">
+      <h4>Profile Details</h4>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <p class="no-margin"><strong>Joined On:</strong> <%= @user.created_at.strftime("%b %d, %Y") %></p>
+        <hr>
+        <p class="no-margin"><strong>Number of Transactions:</strong> <%= @transactions.count %></p>
+        <hr>
+        <p><strong>Number of times lent:</strong> <%= @expenses_paid.count %></p>
+        <p class="no-margin"><strong>Amount lent:</strong> £<%= sprintf("%.2f", @amount_lent).to_f / 100 %></p>
+        <hr>
+        <p><strong>Number of times borrowed:</strong> <%= @splits_owed.count %></p>
+        <p class="no-margin"><strong>Amount borrowed:</strong> £<%= sprintf("%.2f", @amount_borrowed).to_f / 100 %></p>
+        <hr>
+        <p><strong>Stinginess Ratio:</strong> <%= (@amount_lent.to_f/@amount_borrowed.to_f).round(2) %> (higher is less stingy...)</p>
+      </div>
+    </div>
+    <div class="card-row-space"></div>
+  </div>
+</div>
+
+<!-- Transactions Body -->
+<div id="Groups" class="tabcontent" style="display: none;">
   <div class="container">
     <div class="title-section">
       <h2>Your Groups</h2>
@@ -116,28 +155,6 @@
         <% end %>
 
       <% end %>
-    <% end %>
-  </div>
-</div>
-
-<!-- Transactions Body -->
-<div id="Transactions" class="tabcontent" style="display: none;">
-  <div class="container">
-    <div class="title-section">
-      <h2>Your Expenses</h2>
-    </div>
-    <% @transactions.each do %>
-    <div class="list-item-tall">
-      <div class="divider">
-        <div class="list-item-divider-content">
-          <p class="list-item-text"><strong>Jamie Dujardin</strong></p>
-          <p class="list-item-text" >You're all square</p>
-        </div>
-        <div class="list-item-arrow-btn .align-baseline">
-          <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
-        </div>
-      </div>
-    </div>
     <% end %>
   </div>
 </div>
