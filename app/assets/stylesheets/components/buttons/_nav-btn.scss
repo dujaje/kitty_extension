@@ -45,7 +45,7 @@
   background-color: #3c80f6;
 }
 .floaty-list-item--blue > svg {
-  fill: #fff;
+  fill: #fff !important;
 }
 .floaty-list-item--green {
   background-color: $green;

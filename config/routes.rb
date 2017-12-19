@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'info', to: 'pages#info'
 
   # GROUPS CONTROLLERS
-  resources :groups, only: [:show, :update]
+  resources :groups, only: [:show, :update, :destroy]
   get '/reminder', to: 'groups#reminder', as: 'groups_reminder'
 
   # EXPENSES CONTROLLERS

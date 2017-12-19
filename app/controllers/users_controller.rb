@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @users_user_owed_by = users_user_owed_by(@user, @users)
     @users_user_owes = users_user_owes(@user, @users)
     @transactions = all_user_transactions(@user)
+    @balance = get_user_balance(@user)
   end
 
   def transactions
@@ -111,5 +112,13 @@ class UsersController < ApplicationController
     end
     p dates.uniq
     return dates.uniq
+  end
+
+  def get_user_balance(user)
+    balance_cents = 0
+    @user.groups.each do |group|
+      balance_cents += @user.outstanding_with_group(group)
+    end
+    return balance_cents
   end
 end

@@ -28,6 +28,14 @@ class GroupsController < ApplicationController
     @nav_titles = ["Send Reminder"]
   end
 
+  def destroy
+    @user = User.find(params[:user_id])
+    @group = Group.find(params[:group_id])
+    @group_to_delete = Group.find(params[:group_to_delete_id])
+    @group_to_delete.destroy
+    redirect_to user_path(@user)
+  end
+
   private
 
   def outstanding_with_group(user_owes_splits, user_owed_splits)
