@@ -53,6 +53,7 @@
         <%= image_tag split.user.profile_picture_url, class: "avatar-medium" %>
       </div>
     </div>
+    <hr>
     <% end %>
   <% end %>
 
@@ -74,7 +75,7 @@
 
   <% unless @expense.description == "" || @expense.description == "Settled" %>
     <div class="mobile-container text-center">
-      <p>Description: <%= @expense.description %>"</p>
+      <p>Description: <%= @expense.description %></p>
     </div>
   <% end %>
 

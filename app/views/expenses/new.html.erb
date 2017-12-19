@@ -48,7 +48,7 @@
     <div class="side-scroller-description side-scroller-base text-center">
       <p>Go on then, who bought something?</p>
     </div>
-    <% if @group.users.length <= 4 %>
+    <% if @group.users.length < 4 %>
       <div class="row">
         <div class="col">
           <div class="user-selector-area text-center">
@@ -71,8 +71,8 @@
     <% else %>
       <div class="testimonial-group side-scroller-base">
         <div class="row">
-          <div class="col-3 user-self">
-            <div class="user-selector-area text-center current-user">
+          <div class="col-3">
+            <div class="user-selector-area text-center">
               <%= image_tag @user.profile_picture_url, class: "avatar-large avatar-new", data: { id: @user.id } %>
               <p class="under-avatar-text"><%= @user.first_name %> (Me)</p>
             </div>

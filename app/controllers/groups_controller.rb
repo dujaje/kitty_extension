@@ -2,6 +2,7 @@ class GroupsController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @user.first_sign_in = false
+    @user.save
     @group = Group.find(params[:group_id])
     @group.kitty_created = true
     @group.save
@@ -19,6 +20,12 @@ class GroupsController < ApplicationController
     @group.name = params[:group][:name]
     @group.save
     redirect_to group_path(@group, user_id: @user.id, group_id: @group.id)
+  end
+
+  def reminder
+    @user = User.find(params[:user_id])
+    @group = Group.find(params[:group_id])
+    @nav_titles = ["Send Reminder"]
   end
 
   private

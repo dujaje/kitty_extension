@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @group = get_group_id
     @users = User.all
-    @tabs = ["My Account", "People", "Groups"]
+    @tabs = ["Profile", "People", "Groups"]
     @expenses_paid = Expense.where(user_id: @user.id)
     @amount_lent = amount_lent(@expenses_paid)
     @splits_owed = Split.where(user_id: @user.id)
@@ -14,9 +14,13 @@ class UsersController < ApplicationController
   end
 
   def transactions
+    @tabs = ["In Group", "All"]
     @user = User.find(params[:id])
     @group = get_group_id
     @transactions = all_user_transactions(@user)
+    @transaction_dates = get_all_dates_transacted_upon(@transactions)
+    @in_group_transactions = filter_transactions_for_group(@transactions, @group.id)
+    @in_group_transaction_dates = get_all_dates_transacted_upon_in_group(@in_group_transactions)
   end
 
   private
@@ -78,6 +82,34 @@ class UsersController < ApplicationController
     splits_owed.each do |split|
       transactions << split
     end
-    return transactions.sort_by { |item| item.created_at }
+    return transactions.sort_by { |item| item.created_at }.reverse
+  end
+
+  def filter_transactions_for_group(transactions, group_id)
+    filtered_transactions = []
+    transactions.each do |transaction|
+      if transaction.group.id == group_id
+        filtered_transactions << transaction
+      end
+    end
+    return filtered_transactions
+  end
+
+  def get_all_dates_transacted_upon(transactions)
+    dates = []
+    transactions.each do |transaction|
+      dates << transaction.created_at.strftime("%d/%m/%Y")
+    end
+    p dates.uniq
+    return dates.uniq
+  end
+
+  def get_all_dates_transacted_upon_in_group(transactions)
+    dates = []
+    transactions.each do |transaction|
+      dates << transaction.created_at.strftime("%d/%m/%Y")
+    end
+    p dates.uniq
+    return dates.uniq
   end
 end
