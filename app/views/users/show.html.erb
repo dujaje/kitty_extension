@@ -89,20 +89,21 @@
                   <% i += 1 %>
                 <% end %>
               <% end %>
+              <div class="multiple-buttons">
               <% if i == group.memberships.length %>
-                <div class="multiple-buttons">
                   <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                   <p class="btn btn-filled-primary mr-2 mb-0"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
                   <% end %>
                   <%= link_to group_path(group, user_id: @user.id, group_id: @group.id, group_to_delete_id: group.id), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                    <p class="btn btn-filled-danger no-margin"><i class="fa fa-times fa-lg fa-fw" aria-hidden="true"></i> Close Kitty</p>
+                  <p class="btn btn-filled-danger no-margin"><i class="fa fa-times fa-lg fa-fw" aria-hidden="true"></i> Close Kitty</p>
                   <% end %>
-                </div>
               <% else %>
                 <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                   <p class="btn btn-filled-primary no-margin"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
                 <% end %>
+                <button type="button" class="popover-info-btn ml-2"> ? </button>
               <% end %>
+              </div>
             </div>
           </div>
           <div class="card-row-space"></div>
@@ -128,20 +129,21 @@
                   <% i += 1 %>
                 <% end %>
               <% end %>
+              <div class="multiple-buttons">
               <% if i == group.memberships.length %>
-                <div class="multiple-buttons">
                   <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                   <p class="btn btn-filled-primary mr-2 mb-0"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
                   <% end %>
-                <%= link_to group_path(group, user_id: @user.id, group_id: @group.id, group_to_delete_id: group.id), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <%= link_to group_path(group, user_id: @user.id, group_id: @group.id, group_to_delete_id: group.id), method: :delete, data: { confirm: 'Are you sure?' } do %>
                   <p class="btn btn-filled-danger no-margin"><i class="fa fa-times fa-lg fa-fw" aria-hidden="true"></i> Close Kitty</p>
                   <% end %>
-                </div>
               <% else %>
                 <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                   <p class="btn btn-filled-primary no-margin"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
                 <% end %>
+                <button type="button" class="popover-info-btn ml-2"> ? </button>
               <% end %>
+              </div>
             </div>
           </div>
           <div class="card-row-space"></div>
@@ -168,20 +170,21 @@
                   <% i += 1 %>
                 <% end %>
               <% end %>
+              <div class="multiple-buttons">
               <% if i == group.memberships.length %>
-                <div class="multiple-buttons">
                   <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                   <p class="btn btn-filled-primary mr-2 mb-0"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
                   <% end %>
                   <%= link_to group_path(group, user_id: @user.id, group_id: @group.id, group_to_delete_id: group.id), method: :delete, data: { confirm: 'Are you sure?' } do %>
                   <p class="btn btn-filled-danger no-margin"><i class="fa fa-times fa-lg fa-fw" aria-hidden="true"></i> Close Kitty</p>
                   <% end %>
-                </div>
               <% else %>
                 <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                   <p class="btn btn-filled-primary no-margin"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
                 <% end %>
+                <button type="button" class="popover-info-btn ml-2"> ? </button>
               <% end %>
+              </div>
             </div>
           </div>
           <div class="card-row-space"></div>
@@ -209,20 +212,21 @@
                   <% i += 1 %>
                 <% end %>
               <% end %>
+              <div class="multiple-buttons">
               <% if i == group.memberships.length %>
-                <div class="multiple-buttons">
                   <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                   <p class="btn btn-filled-primary mr-2 mb-0"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
                   <% end %>
                   <%= link_to group_path(group, user_id: @user.id, group_id: @group.id, group_to_delete_id: group.id), method: :delete, data: { confirm: 'Are you sure?' } do %>
                   <p class="btn btn-filled-danger no-margin"><i class="fa fa-times fa-lg fa-fw" aria-hidden="true"></i> Close Kitty</p>
                   <% end %>
-                </div>
               <% else %>
                 <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                   <p class="btn btn-filled-primary no-margin"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
                 <% end %>
+                <button type="button" class="popover-info-btn ml-2"> ? </button>
               <% end %>
+              </div>
             </div>
           </div>
           <div class="card-row-space"></div>
@@ -291,6 +295,8 @@
   </div>
 </div>
 
+
+
 <!-- Javascript that controls tabs activation -->
 <script>
   // TABS SELECTOR
@@ -311,4 +317,11 @@
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+  // Popover Animation
+  const popovers = document.querySelectorAll(".popover-info-btn")
+  popovers.forEach((popoverBtn) => {
+    popoverBtn.addEventListener("click", () => {
+      window.alert("You can only close a Kitty when no-one has money outstanding in it.");
+    })
+  })
 </script>
