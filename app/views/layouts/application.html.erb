@@ -29,6 +29,11 @@
 
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/5e176c86ea.js"></script>
+    <!-- <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css"> -->
+
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
     <%# javascript_pack_tag 'hello_react' %>
   </head>
 
@@ -47,6 +52,7 @@
     <!-- Usual Page Yields -->
     <%= yield %>
     <%= javascript_include_tag 'application' %>
+    <%# javascript_pack_tag 'application' %>
     <%= yield(:after_js) %>
 
   </body>

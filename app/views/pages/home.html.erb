@@ -4,5 +4,10 @@
     <h1>Bootstrap 4 Works!</h1>
     <p class="lead">Go ahead and build your awesome app now.</p>
     <p>Some random body text</p>
+    <button type="button" class="btn btn-primary" id="hello-js">Hello JS</button>
   </div>
 </div>
+
+<% content_for(:after_js) do %>
+  <%= javascript_pack_tag 'homedemo' %>
+<% end %>

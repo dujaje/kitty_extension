@@ -296,32 +296,27 @@
 </div>
 
 
-
-<!-- Javascript that controls tabs activation -->
-<script>
-  // TABS SELECTOR
-  const firstTab = document.getElementById("FirstTab");
-  firstTab.style.display = "block";
-  const firsttab = document.getElementById("firsttab")
-  firsttab.className += " active";
-  function openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+<% content_for(:after_js) do %>
+  <!-- Javascript that controls tabs activation -->
+  <%= javascript_pack_tag 'usercontroller' %>
+  <script>
+    // TABS SELECTOR
+    const firstTab = document.getElementById("FirstTab");
+    firstTab.style.display = "block";
+    const firsttab = document.getElementById("firsttab")
+    firsttab.className += " active";
+    function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
-  // Popover Animation
-  const popovers = document.querySelectorAll(".popover-info-btn")
-  popovers.forEach((popoverBtn) => {
-    popoverBtn.addEventListener("click", () => {
-      window.alert("You can only close a Kitty when no-one has money outstanding in it.");
-    })
-  })
-</script>
+  </script>
+<% end %>
