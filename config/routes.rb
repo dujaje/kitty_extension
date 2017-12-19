@@ -9,11 +9,15 @@ Rails.application.routes.draw do
 
   # GROUPS CONTROLLERS
   resources :groups, only: [:show, :update]
+  get '/reminder', to: 'groups#reminder', as: 'groups_reminder'
+
   # EXPENSES CONTROLLERS
   resources :expenses, only: [:new, :create, :show]
   get 'settle', to: 'expenses#settle'
+
   # USERS CONTROLLERS
   resources :users, only: [:show]
+  get '/transactions/:id', to: 'users#transactions', as: 'user_transactions'
 
 # WEBHOOKS FOLDER, WEBHOOKS CONTROLLER
   get 'webhooks', to: 'webhooks#messenger'

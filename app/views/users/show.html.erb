@@ -18,9 +18,55 @@
 
 <!-- Groups Body -->
 <div id="FirstTab" class="tabcontent">
+  <div class="profile-header text-center">
+    <%= image_tag @user.profile_picture_url, class: "avatar-profile-picture" %>
+    <h2 class="color-white"><%= @user.first_name %> <%= @user.last_name %></h2>
+  </div>
   <div class="container">
     <div class="title-section">
-      <h2>Your Groups</h2>
+      <h3>Overview</h3>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <p><strong>Balance:</strong></p>
+        <% if @amount_borrowed - @amount_lent == 0 %>
+          <h5 class="no-margin">£0.00</h5>
+        <% elsif @amount_borrowed - @amount_lent < 0 %>
+          <h5 class="no-margin color-primary">£<%= sprintf("%.2f", (@amount_borrowed.to_f - @amount_lent.to_f) / 100 * -1) %></h5>
+        <% else %>
+          <h5 class="no-margin color-warning">£<%= sprintf("%.2f", (@amount_borrowed.to_f - @amount_lent.to_f) / 100) %></h5>
+        <% end %>
+      </div>
+    </div>
+    <div class="card-row-space"></div>
+
+    <div class="title-section">
+      <h3>Profile Details</h3>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <p class="no-margin"><strong>Joined On:</strong> <%= @user.created_at.strftime("%b %d, %Y") %></p>
+        <hr>
+        <p class="no-margin"><strong>Number of Transactions:</strong> <%= @transactions.count %></p>
+        <hr>
+        <p><strong>Number of times lent:</strong> <%= @expenses_paid.count %></p>
+        <p class="no-margin"><strong>Amount lent:</strong> £<%= sprintf("%.2f", @amount_lent.to_f / 100) %></p>
+        <hr>
+        <p><strong>Number of times borrowed:</strong> <%= @splits_owed.count %></p>
+        <p class="no-margin"><strong>Amount borrowed:</strong> £<%= sprintf("%.2f", @amount_borrowed.to_f / 100) %></p>
+        <hr>
+        <p><strong>Stinginess Ratio:</strong> <%= (@amount_lent.to_f/@amount_borrowed.to_f).round(2) %> (higher is less stingy...)</p>
+      </div>
+    </div>
+    <div class="card-row-space"></div>
+  </div>
+</div>
+
+<!-- Transactions Body -->
+<div id="Groups" class="tabcontent" style="display: none;">
+  <div class="container">
+    <div class="title-section">
+      <h3>Your Groups</h3>
     </div>
 
     <% @user.groups.each do |group| %>
@@ -34,9 +80,9 @@
               <% if @user.outstanding_with_group(group) == 0 %>
                 <p>All square in this group!</p>
               <% elsif @user.outstanding_with_group(group) > 0 %>
-                <p>Overall, the group owes you: <span class="color-primary">£<%= sprintf("%.2f", @user.outstanding_with_group(group)).to_f / 100 %></span></p>
+                <p>Overall, the group owes you: <span class="color-primary">£<%= sprintf("%.2f", @user.outstanding_with_group(group).to_f / 100) %></span></p>
               <% else %>
-                <p>Overall, you owe this group: <span class="color-warning">£<%= sprintf("%.2f", @user.outstanding_with_group(group)).to_f * -1 / 100 %></span></p>
+                <p>Overall, you owe this group: <span class="color-warning">£<%= sprintf("%.2f", @user.outstanding_with_group(group).to_f * -1 / 100) %></span></p>
               <% end %>
               <%= link_to group_path(user_id: @user.id, group_id: group.id) do %>
                 <p class="btn btn-filled-primary no-margin"><i class="fa fa-search fa-fw" aria-hidden="true"></i> See Group</p>
@@ -120,28 +166,6 @@
   </div>
 </div>
 
-<!-- Transactions Body -->
-<div id="Transactions" class="tabcontent" style="display: none;">
-  <div class="container">
-    <div class="title-section">
-      <h2>Your Expenses</h2>
-    </div>
-    <% @transactions.each do %>
-    <div class="list-item-tall">
-      <div class="divider">
-        <div class="list-item-divider-content">
-          <p class="list-item-text"><strong>Jamie Dujardin</strong></p>
-          <p class="list-item-text" >You're all square</p>
-        </div>
-        <div class="list-item-arrow-btn .align-baseline">
-          <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
-        </div>
-      </div>
-    </div>
-    <% end %>
-  </div>
-</div>
-
 <!-- People Body -->
 <div id="People" class="tabcontent" style="display: none;">
   <div class="container">
@@ -149,7 +173,7 @@
   <!-- You are owed section -->
     <% unless @users_user_owed_by.empty? %>
       <div class="title-section">
-        <h2>You are owed</h2>
+        <h3>You are owed</h3>
       </div>
       <% @users.each do |member| %>
         <% if member == @user %>
@@ -177,7 +201,7 @@
   <!-- You Owe Section -->
     <% unless @users_user_owes.empty? %>
       <div class="title-section">
-        <h2>You owe</h2>
+        <h3>You owe</h3>
       </div>
       <% @users.each do |member| %>
         <% if member == @user %>

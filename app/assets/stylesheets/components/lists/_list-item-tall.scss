@@ -1,5 +1,5 @@
 .list-item-tall {
-  height: 64px;
+  min-height: 64px;
   display: flex;
   align-items: center;
 }
@@ -50,4 +50,8 @@ a list-item-short {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.arrow-right {
+  width: 194px;
 }

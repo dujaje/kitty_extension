@@ -1,86 +1,82 @@
+<!-- Defining page title -->
 <% if @expense.description == "Settled" %>
   <% @title = "Settle Breakdown" %>
 <% else %>
   <% @title = "Expense Breakdown" %>
 <% end %>
-<div class="blue-back flex">
-  <h4 class="Poppins white heavy"><%= @expense.title %></h4>
-  <div class="navbar-profile-pic">
-    <%= link_to user_path(@user) do %>
-      <%= image_tag @user.profile_picture_url, class: "avatar-navbar" %>
-    <% end %>
-  </div>
-</div>
-<div class="mobile-container text-center">
-  <h4 class="Poppins heavy"><%= @expense.created_at.strftime("%b %d, %Y") %></h4>
-</div>
-<% unless @expense.location == "" %>
-  <div class="mobile-container text-center">
-    <h4 class="Poppins black heavy"><%= @expense.location %></h4>
-  </div>
-<% end %>
-<% unless @expense.description == "" || @expense.description == "Settled" %>
-  <div class="mobile-container text-center">
-    <h5 class="Poppins">"<%= @expense.description %>"</h5>
-  </div>
-<% end %>
 
+<!-- Navbar -->
+<%= render 'shared/navbar_with_menu' %>
 
-<% if @expense.description == "Settled" %>
-  <div class="mobile-container text-left">
-    <h4 class="Poppins heavy"><%= @expense.user.first_name %> paid £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %></h4>
-  </div>
-<% else %>
-  <div class="mobile-container text-left">
-    <h4 class="Poppins heavy">The bill was £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %></h4>
-  </div>
-<% end %>
+<!-- Fixed Navigation Button -->
+  <!-- Title in the navbar is always determined in the controller. -->
+<%= render 'shared/fixed_nav_btn' %>
 
-
-<div class="horiz-pad">
-  <div class="spacing-bar" ></div>
-</div>
-
-<% @expense.splits.each do |split| %>
-  <div class="list-item-tall">
-    <div class="profile-img-container">
-      <%= image_tag split.user.profile_picture_url, class: "avatar-list" %>
+<div class="container">
+  <% if @expense.description == "Settled" %>
+    <div class="title-section">
+      <h4 class="no-margin"><%= @expense.user.first_name %> paid back £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %></h4>
     </div>
-    <div class="divider">
-      <div class="list-item-divider-content">
-        <p class="list-item-text"><strong><%= split.user.first_name %> <%= split.user.last_name %></strong></p>
-        <% if @expense.description == "Settled" %>
-          <p class="list-item-text" ><%= @expense.user.first_name %> repayed <%= split.user.first_name %>: £<%= sprintf("%.2f", (split.amount_cents.to_f / 100)) %></p>
-        <% else %>
-          <p class="list-item-text" ><%= @expense.user.first_name %> lent <%= split.user.first_name %>: £<%= sprintf("%.2f", (split.amount_cents.to_f / 100)) %></p>
-        <% end %>
+    <% else %>
+    <div class="title-section">
+      <h4 class="no-margin">Overall, <%= @expense.user.first_name %> paid £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %> for <%= @expense.title %></h4>
+    </div>
+    <% end %>
 
+  <hr>
+  <% if @expense.description == "Settled" %>
+    <div class="list-item-tall">
+      <div class="profile-img-container mr-4">
+        <%= image_tag @expense.user.profile_picture_url, class: "avatar-medium" %>
+      </div>
+      <div class="arrow-right-container text-center">
+        <p class="under-avatar-text no-margin">Paid Back: £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %></p>
+        <%= image_tag 'arrow-right.svg', class: "arrow-right"%>
+        <p class="under-avatar-text no-margin"><%= @expense.created_at.strftime("%b %d, %Y") %></p>
+      </div>
+      <div class="profile-img-container ml-4">
+        <%= image_tag @expense.splits.first.user.profile_picture_url, class: "avatar-medium" %>
       </div>
     </div>
-  </div>
-<% end %>
-
-<div class="button-spacer"></div>
-
-<% if @expense.description == "Settled" %>
-  <div class="mobile-container text-left">
+  <% else %>
     <% @expense.splits.each do |split| %>
-      <% if @expense.user.outstanding_with_person_in_group(split.user, @group) == 0 %>
-        <h4 class="Poppins heavy"><%= @expense.user.first_name %> and <%= split.user.first_name %> are all square</h4>
-      <% elsif @expense.user.outstanding_with_person_in_group(split.user, @group) < 0 %>
-        <h4 class="Poppins heavy"><%= @expense.user.first_name %> still owes <%= split.user.first_name %>: £<%= sprintf("%.2f", @expense.user.outstanding_with_person_in_group(split.user, @group).to_f * -1 / 100) %></h4>
-      <% else %>
-        <h4 class="Poppins heavy"><%= split.user.first_name %> now owes <%= @expense.user.first_name %>: £<%= sprintf("%.2f", @expense.user.outstanding_with_person_in_group(split.user, @group).to_f / 100) %></h4>
-      <% end %>
+    <div class="list-item-tall">
+      <div class="profile-img-container mr-4">
+        <%= image_tag @expense.user.profile_picture_url, class: "avatar-medium" %>
+      </div>
+      <div class="arrow-right-container text-center">
+        <p class="under-avatar-text no-margin">Lent: £<%= sprintf("%.2f", (split.amount_cents.to_f / 100)) %></p>
+        <%= image_tag 'arrow-right.svg', class: "arrow-right"%>
+        <p class="under-avatar-text no-margin"><%= @expense.created_at.strftime("%b %d, %Y") %></p>
+      </div>
+      <div class="profile-img-container ml-4">
+        <%= image_tag split.user.profile_picture_url, class: "avatar-medium" %>
+      </div>
+    </div>
+    <hr>
     <% end %>
-  </div>
-  <div class="horiz-pad">
-    <div class="spacing-bar" ></div>
-  </div>
-<% end %>
-
-<div class="fixed-btn-section">
-  <%= link_to group_path(group_id: @group.id, user_id: @user.id ) do %>
-    <button class="send-btn Poppins eighteen heavy"><div class="send-inner"><i class="fa fa-arrow-left fa-fw" aria-hidden="true"></i> Back to <%= @group.name %></div></button>
   <% end %>
+
+  <hr>
+
+  <div class="title-section">
+    <h4 class="no-margin">Details</h4>
+  </div>
+
+  <% if @expense.location == "" && @expense.description == "" || @expense.description == "Settled" %>
+    <p>No details given.</p>
+  <% end %>
+
+  <% unless @expense.location == "" %>
+    <div class="mobile-container text-center">
+      <p>Paid at: <%= @expense.location %></p>
+    </div>
+  <% end %>
+
+  <% unless @expense.description == "" || @expense.description == "Settled" %>
+    <div class="mobile-container text-center">
+      <p>Description: <%= @expense.description %></p>
+    </div>
+  <% end %>
+
 </div>

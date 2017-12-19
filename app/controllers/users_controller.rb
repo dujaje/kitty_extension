@@ -3,15 +3,43 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @group = get_group_id
     @users = User.all
-    @tabs = ["Groups", "Transactions", "People"]
+    @tabs = ["Profile", "People", "Groups"]
     @expenses_paid = Expense.where(user_id: @user.id)
+    @amount_lent = amount_lent(@expenses_paid)
     @splits_owed = Split.where(user_id: @user.id)
+    @amount_borrowed = amount_borrowed(@splits_owed)
     @users_user_owed_by = users_user_owed_by(@user, @users)
     @users_user_owes = users_user_owes(@user, @users)
     @transactions = all_user_transactions(@user)
   end
 
+  def transactions
+    @tabs = ["In Group", "All"]
+    @user = User.find(params[:id])
+    @group = get_group_id
+    @transactions = all_user_transactions(@user)
+    @transaction_dates = get_all_dates_transacted_upon(@transactions)
+    @in_group_transactions = filter_transactions_for_group(@transactions, @group.id)
+    @in_group_transaction_dates = get_all_dates_transacted_upon_in_group(@in_group_transactions)
+  end
+
   private
+
+  def amount_lent(expenses_paid)
+    amount_lent = 0
+    expenses_paid.each do |expense|
+      amount_lent += expense.amount_cents
+    end
+    return amount_lent
+  end
+
+  def amount_borrowed(splits_owed)
+    amount_borrowed = 0
+    splits_owed.each do |split|
+      amount_borrowed += split.amount_cents
+    end
+    return amount_borrowed
+  end
 
   def get_group_id
     if params[:group_id]
@@ -44,7 +72,9 @@ class UsersController < ApplicationController
   def all_user_transactions(user)
     transactions = []
     expenses_paid = Expense.where(user_id: user.id)
+    p expenses_paid
     splits_owed = Split.where(user_id: user.id)
+    p splits_owed
 
     expenses_paid.each do |expense|
       transactions << expense
@@ -52,6 +82,34 @@ class UsersController < ApplicationController
     splits_owed.each do |split|
       transactions << split
     end
-    return transactions
+    return transactions.sort_by { |item| item.created_at }.reverse
+  end
+
+  def filter_transactions_for_group(transactions, group_id)
+    filtered_transactions = []
+    transactions.each do |transaction|
+      if transaction.group.id == group_id
+        filtered_transactions << transaction
+      end
+    end
+    return filtered_transactions
+  end
+
+  def get_all_dates_transacted_upon(transactions)
+    dates = []
+    transactions.each do |transaction|
+      dates << transaction.created_at.strftime("%d/%m/%Y")
+    end
+    p dates.uniq
+    return dates.uniq
+  end
+
+  def get_all_dates_transacted_upon_in_group(transactions)
+    dates = []
+    transactions.each do |transaction|
+      dates << transaction.created_at.strftime("%d/%m/%Y")
+    end
+    p dates.uniq
+    return dates.uniq
   end
 end

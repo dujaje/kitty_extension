@@ -27,15 +27,6 @@ class ExpensesController < ApplicationController
     p getparams[:settle_group]
     @involved_group_string = get_involved_group(getparams[:involved_group], getparams[:settle_group])
     @location = getparams[:location]
-    if @description == "Settled"
-      @expense = Expense.new(
-        title: @title,
-        description: @description,
-        amount_cents: @amount_cents,
-        user_id: @to_pay.id,
-        group_id: @group.id,
-        location: @location)
-    else
       @expense = Expense.new(
         title: @title,
         description: @description,
@@ -43,7 +34,6 @@ class ExpensesController < ApplicationController
         user_id: @user.id,
         group_id: @group.id,
         location: @location)
-    end
     if @involved_group_string != "" && @involved_group_string != [@user.id.to_s] && @expense.save
       equal_splitter(@expense, @involved_group_string)
       redirect_to expense_path(@expense, user_id: @user.id, group_id: @group.id)
@@ -56,9 +46,18 @@ class ExpensesController < ApplicationController
     @expense = Expense.find(params[:id].to_i)
     @user = User.find(params[:user_id])
     @group = Group.find(params[:group_id])
+    @nav_title = expense_show_nav_title(@expense)
   end
 
   private
+
+  def expense_show_nav_title(expense)
+    if expense.description == "Settled"
+      return " #{expense.user.first_name} paid back #{expense.splits.first.user.first_name}"
+    else
+      return expense.title
+    end
+  end
 
   def equal_splitter(expense, involved_group_string)
     involved_group = involved_group_string.split(",")
@@ -78,7 +77,6 @@ class ExpensesController < ApplicationController
   def get_involved_group(params_involved_group, params_settle_group)
     new_group = params_involved_group
     settle_group = params_settle_group
-
     if new_group.nil?
       puts settle_group
       return settle_group

@@ -1,0 +1,164 @@
+<!-- Title -->
+<% @title = "Your Transactions" %>
+<!-- Fixed Navigation Button -->
+<%= render 'shared/fixed_nav_btn' %>
+<!-- Navbar -->
+<!-- Title in the navbar is always determined in the controller. -->
+<%= render 'shared/navbar_with_menu' %>
+<!-- Tabs Bar -->
+<div class="tab">
+  <button class="tablinks" id="firsttab" onclick="openCity(event, 'FirstTab')"><%= @tabs[0] %></button>
+  <% @tabs.each_with_index do |tab, index| %>
+    <% if index != 0 %>
+    <button class="tablinks" onclick="openCity(event, '<%= tab %>')"><%= tab %></button>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="FirstTab" class="tabcontent">
+  <div class="container">
+  <% if @in_group_transaction_dates.empty? %>
+    <h5>No expenses yet. Press the plus to add one!</h5>
+  <% else %>
+    <% @in_group_transaction_dates.each do |date| %>
+      <div class="title-section">
+        <h5 class="no-margin"><%= date %></h5>
+      </div>
+      <hr class="no-margin">
+      <% @in_group_transactions.each do |transaction| %>
+        <% if transaction.created_at.strftime("%d/%m/%Y") == date %>
+          <% if transaction.class.name == "Expense" %>
+            <% if transaction.description == "Settled" %>
+            <%= link_to expense_path(transaction, user_id: @user.id, group_id: @group.id) do %>
+            <div class="list-item-tall">
+              <div class="divider">
+                <div class="list-item-divider-content">
+                  <p class="list-item-text">You paid back <strong><%= transaction.splits.first.user.first_name %></strong></p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.created_at.strftime("%d/%m/%Y") %>)</p>
+                </div>
+                <div class="list-item-arrow-btn .align-baseline">
+                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+            <%= link_to expense_path(transaction, user_id: @user.id, group_id: @group.id) do %>
+            <div class="list-item-tall">
+              <div class="divider">
+                <div class="list-item-divider-content">
+                  <p class="list-item-text">You paid for <strong><%= transaction.title %></strong> in <strong><%= transaction.group.name %></strong></p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.created_at.strftime("%d/%m/%Y") %>)</p>
+                </div>
+                <div class="list-item-arrow-btn .align-baseline">
+                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% else %>
+            <%= link_to expense_path(transaction.expense, user_id: @user.id, group_id: @group.id) do %>
+            <div class="list-item-tall">
+              <div class="divider">
+                <div class="list-item-divider-content">
+                  <p class="list-item-text"><strong><%= transaction.expense.user.first_name %> <%= transaction.expense.user.last_name %></strong> paid for your <strong><%= transaction.expense.title %></strong> in <strong><%= transaction.expense.group.name %></strong></p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.expense.created_at.strftime("%d/%m/%Y") %>)</p>
+                </div>
+                <div class="list-item-arrow-btn .align-baseline">
+                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  </div>
+</div>
+
+<div id="All" class="tabcontent" style="display: none;">
+  <div class="container">
+  <% if @in_group_transaction_dates.empty? %>
+    <h5>No expenses yet. Press the plus to add one!</h5>
+  <% else %>
+    <% @transaction_dates.each do |date| %>
+      <div class="title-section">
+        <h5 class="no-margin"><%= date %></h5>
+      </div>
+      <hr class="no-margin">
+      <% @transactions.each do |transaction| %>
+        <% if transaction.created_at.strftime("%d/%m/%Y") == date %>
+          <% if transaction.class.name == "Expense" %>
+            <% if transaction.description == "Settled" %>
+            <%= link_to expense_path(transaction, user_id: @user.id, group_id: @group.id) do %>
+            <div class="list-item-tall">
+              <div class="divider">
+                <div class="list-item-divider-content">
+                  <p class="list-item-text">You paid back <strong><%= transaction.splits.first.user.first_name %></strong></p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.created_at.strftime("%d/%m/%Y") %>)</p>
+                </div>
+                <div class="list-item-arrow-btn .align-baseline">
+                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+            <%= link_to expense_path(transaction, user_id: @user.id, group_id: @group.id) do %>
+            <div class="list-item-tall">
+              <div class="divider">
+                <div class="list-item-divider-content">
+                  <p class="list-item-text">You paid for <strong><%= transaction.title %></strong> in <strong><%= transaction.group.name %></strong></p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.created_at.strftime("%d/%m/%Y") %>)</p>
+                </div>
+                <div class="list-item-arrow-btn .align-baseline">
+                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% else %>
+            <%= link_to expense_path(transaction.expense, user_id: @user.id, group_id: @group.id) do %>
+            <div class="list-item-tall">
+              <div class="divider">
+                <div class="list-item-divider-content">
+                  <p class="list-item-text"><strong><%= transaction.expense.user.first_name %> <%= transaction.expense.user.last_name %></strong> paid for your <strong><%= transaction.expense.title %></strong> in <strong><%= transaction.expense.group.name %></strong></p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.expense.created_at.strftime("%d/%m/%Y") %>)</p>
+                </div>
+                <div class="list-item-arrow-btn .align-baseline">
+                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  </div>
+</div>
+
+<!-- Javascript that controls tabs activation -->
+<script>
+  // TABS SELECTOR
+  const firstTab = document.getElementById("FirstTab");
+  firstTab.style.display = "block";
+  const firsttab = document.getElementById("firsttab")
+  firsttab.className += " active";
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
