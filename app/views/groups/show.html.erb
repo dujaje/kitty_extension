@@ -78,11 +78,90 @@
 </div>
 
 <!-- JAVASCRIPT TO REFRESH PAGE IF YOU ARE THE ONLY MEMBER OF THE GROUP -->
+<% if @user.first_sign_in == true %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.1.1/sweetalert2.all.min.js' %>
+  <script>
+  swal.setDefaults({
+  type: 'info',
+  confirmButtonText: 'Next &rarr;',
+  confirmButtonColor: '#00B8D8',
+  progressSteps: ['1', '2', '3']
+  })
+
+  var steps = [
+  {
+    type: 'info',
+    title: 'Welcome to Kitty, looks like its your first time',
+    text: "This is the home of your group chat's expenses and lending. Soon you will be able to pay people back too!"
+  },
+  {
+    type: 'info',
+    title: 'Add an expense',
+    text: "Down in the bottom right there is a button to add an expense or settle with someone. You can also send a reminder to people to pay you back."
+  },
+  {
+    type: 'info',
+    title: 'Keep on top of everything',
+    text: "Your profile is a little dashboard to show you exactly who and how much you owe or are owed. We even keep track of all the transactions you're involved in and have built you a stinginess ratio to show your friends who is best at lending money!"
+  },
+  ]
+
+  swal.queue(steps).then((result) => {
+  swal.resetDefaults()
+
+  if (result.value) {
+    swal({
+      title: "That's everything for now. More coming soon!",
+      text: "We want to know what the next key features should be. Let us know at www.kittysplit.co.uk",
+      confirmButtonText: 'All Understood!',
+      confirmButtonColor: '#00B8D8'
+    })
+  }
+  })
+
+    // swal.setDefaults({
+    //   type: 'info',
+    //   confirmButtonText: 'Next &rarr;',
+    //   progressSteps: ['1', '2', '3']
+    // })
+    //
+    // var steps = [
+    //   {
+    //     title: 'Welcome to Kitty, looks like its your first time',
+    //     text: "This is the home of your group chat's expenses and lending. Soon you will be able to pay people back too!"
+    //   },
+    //   {
+    //     title: 'Add an expense',
+    //     text: "Down in the bottom right there is a button to add an expense or settle with someone. You can also send a reminder to people to pay you back."
+    //   },
+    //   {
+    //     title: 'Keep on top of everything',
+    //     text: "Your profile is a little dashboard to show you exactly who and how much you owe or are owed. We even keep track of all the transactions you're involved in and have built you a stinginess ratio to show your friends who is best at lending money!"
+    //   },
+    // ]
+    //
+    // swal.queue(steps).then((result) => {
+    //   swal.resetDefaults()
+    //
+    //   if (result.value) {
+    //     swal({
+    //       title: "That's everything for now, we will bring out more soon though!",
+    //       text: "We want to know what are the next key features to build. Let us know at www.kittysplit.co.uk"
+    //       confirmButtonText: 'All Understood!'
+    //       confirmButtonColor: '#00B8D8',
+    //     })
+    //   }
+    // })
+  </script>
+  <% @user.first_sign_in = false %>
+  <% @user.save %>
+<% end %>
+
 <% if @group.users.length == 1 %>
   <script>
     function autoRefresh1(){
       window.location.reload();
     }
-    setInterval('autoRefresh1()', 5000);
+    setInterval('autoRefresh1()', 15000);
   </script>
 <% end %>

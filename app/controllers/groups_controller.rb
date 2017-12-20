@@ -1,8 +1,8 @@
 class GroupsController < ApplicationController
   def show
     @user = User.find(params[:user_id])
-    @user.first_sign_in = false
-    @user.save
+    # @user.first_sign_in = false
+    # @user.save
     @group = Group.find(params[:group_id])
     @group.kitty_created = true
     @group.save

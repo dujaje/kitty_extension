@@ -69,9 +69,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   def first_sign_in_url(user, group)
     if user.first_sign_in
       puts "5. This is the user's first sign in. Group Already Exists"
-      user.first_sign_in = false
-      user.save
-      url = Rails.application.routes.url_helpers.info_url(user_id: user.id, group_id: group.id)
+      # user.first_sign_in = false
+      # user.save
+      # url = Rails.application.routes.url_helpers.info_url(user_id: user.id, group_id: group.id)
+      url = Rails.application.routes.url_helpers.group_url(group, user_id: user.id, group_id: group.id)
       return url
     else
       puts "5. This is not the user's first sign in. Group Already Exists"

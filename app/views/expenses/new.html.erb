@@ -178,6 +178,7 @@
 
 <!-- JAVASCRIPT FOR THE BUTTON TO SEND TO GROUP AND CLOSE BROWSER -->
 <% content_for(:after_js) do %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.1.1/sweetalert2.all.min.js' %>
   <script>
   // ###########################################################################################################
   // Page Wide Variables:
@@ -283,15 +284,15 @@
         // Begin Facebook's Send to Group Flow
         MessengerExtensions.beginShareFlow(function(share_response) {
           // User dismissed without error, but did they share the message?
-          if(share_response.is_sent){
-            // The user actually did share.
-            // Perhaps close the window w/ requestCloseBrowser().
-            MessengerExtensions.requestCloseBrowser(function success() {
-              // webview closed if successful
-            }, function error(err) {
-              // if an error occurred, run no code
-            });
-          }
+          // if(share_response.is_sent){
+          //   // The user actually did share.
+          //   // Perhaps close the window w/ requestCloseBrowser().
+          //   MessengerExtensions.requestCloseBrowser(function success() {
+          //     // webview closed if successful
+          //   }, function error(err) {
+          //     // if an error occurred, run no code
+          //   });
+          // }
         },
         function(errorCode, errorMessage) {
         // An error occurred in the process of sending message, do nothing
@@ -299,6 +300,14 @@
         message,
         "current_thread");
         // End Facebook's Send to Group Flow
+        swal({
+          position: 'top-right',
+          type: 'success',
+          title: '<h3> Expense created! </h3>',
+          showConfirmButton: true,
+          confirmButtonText: '<i class="fa fa-thumbs-up"></i>',
+          confirmButtonColor: '#00B8D8',
+        })
       }
     });
 
