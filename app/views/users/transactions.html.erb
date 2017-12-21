@@ -29,46 +29,47 @@
         <% if transaction.created_at.strftime("%d/%m/%Y") == date %>
           <% if transaction.class.name == "Expense" %>
             <% if transaction.description == "Settled" %>
-            <%= link_to expense_path(transaction, user_id: @user.id, group_id: @group.id) do %>
-            <div class="list-item-tall">
-              <div class="divider">
-                <div class="list-item-divider-content">
-                  <p class="list-item-text">You paid back <strong><%= transaction.splits.first.user.first_name %></strong></p>
-                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.created_at.strftime("%d/%m/%Y") %>)</p>
-                </div>
-                <div class="list-item-arrow-btn .align-baseline">
-                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
-                </div>
-              </div>
-            </div>
-            <% end %>
-            <% end %>
-            <%= link_to expense_path(transaction, user_id: @user.id, group_id: @group.id) do %>
-            <div class="list-item-tall">
-              <div class="divider">
-                <div class="list-item-divider-content">
-                  <p class="list-item-text">You paid for <strong><%= transaction.title %></strong> in <strong><%= transaction.group.name %></strong></p>
-                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.created_at.strftime("%d/%m/%Y") %>)</p>
-                </div>
-                <div class="list-item-arrow-btn .align-baseline">
-                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+              <%= link_to expense_path(transaction, user_id: @user.id, group_id: @group.id) do %>
+              <div class="list-item-tall">
+                <div class="divider">
+                  <div class="list-item-divider-content">
+                    <p class="list-item-text">You paid back <strong><%= transaction.splits.first.user.first_name %></strong></p>
+                    <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %></p>
+                  </div>
+                  <div class="list-item-arrow-btn .align-baseline">
+                    <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <% end %>
+              <% end %>
             <% else %>
-            <%= link_to expense_path(transaction.expense, user_id: @user.id, group_id: @group.id) do %>
-            <div class="list-item-tall">
-              <div class="divider">
-                <div class="list-item-divider-content">
-                  <p class="list-item-text"><strong><%= transaction.expense.user.first_name %> <%= transaction.expense.user.last_name %></strong> paid for your <strong><%= transaction.expense.title %></strong> in <strong><%= transaction.expense.group.name %></strong></p>
-                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.expense.created_at.strftime("%d/%m/%Y") %>)</p>
+              <%= link_to expense_path(transaction, user_id: @user.id, group_id: @group.id) do %>
+                <div class="list-item-tall">
+                  <div class="divider">
+                    <div class="list-item-divider-content">
+                      <p class="list-item-text">You paid for <strong><%= transaction.title %></strong> in <strong><%= transaction.group.name %></strong></p>
+                      <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %></p>
+                    </div>
+                    <div class="list-item-arrow-btn .align-baseline">
+                      <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                    </div>
+                  </div>
                 </div>
-                <div class="list-item-arrow-btn .align-baseline">
-                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= link_to expense_path(transaction.expense, user_id: @user.id, group_id: @group.id) do %>
+              <div class="list-item-tall">
+                <div class="divider">
+                  <div class="list-item-divider-content">
+                    <p class="list-item-text"><strong><%= transaction.expense.user.first_name %> <%= transaction.expense.user.last_name %></strong> paid for your <strong><%= transaction.expense.title %></strong> in <strong><%= transaction.expense.group.name %></strong></p>
+                    <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %></p>
+                  </div>
+                  <div class="list-item-arrow-btn .align-baseline">
+                    <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+                  </div>
                 </div>
               </div>
-            </div>
             <% end %>
           <% end %>
         <% end %>
@@ -97,7 +98,7 @@
               <div class="divider">
                 <div class="list-item-divider-content">
                   <p class="list-item-text">You paid back <strong><%= transaction.splits.first.user.first_name %></strong></p>
-                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.created_at.strftime("%d/%m/%Y") %>)</p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %></p>
                 </div>
                 <div class="list-item-arrow-btn .align-baseline">
                   <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
@@ -111,7 +112,7 @@
               <div class="divider">
                 <div class="list-item-divider-content">
                   <p class="list-item-text">You paid for <strong><%= transaction.title %></strong> in <strong><%= transaction.group.name %></strong></p>
-                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.created_at.strftime("%d/%m/%Y") %>)</p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %></p>
                 </div>
                 <div class="list-item-arrow-btn .align-baseline">
                   <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
@@ -125,7 +126,7 @@
               <div class="divider">
                 <div class="list-item-divider-content">
                   <p class="list-item-text"><strong><%= transaction.expense.user.first_name %> <%= transaction.expense.user.last_name %></strong> paid for your <strong><%= transaction.expense.title %></strong> in <strong><%= transaction.expense.group.name %></strong></p>
-                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %> (<%= transaction.expense.created_at.strftime("%d/%m/%Y") %>)</p>
+                  <p class="list-item-text" >£<%= sprintf("%.2f", transaction.amount_cents.to_f / 100) %></p>
                 </div>
                 <div class="list-item-arrow-btn .align-baseline">
                   <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>

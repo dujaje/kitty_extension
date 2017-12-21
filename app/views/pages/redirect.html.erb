@@ -1,11 +1,18 @@
 <% @title = "Loading..." %>
 
-<div class="loading-container text-center">
-    <%= image_tag("icon_welcome.png", size: '200', alt: "Edit", class: "loading-logo-img centered") %>
-      <% fun_arr = ["Using litter responsibly!", "Licking paws...", "Busy mouse hunting!", "Compawling the database...", "Purrsuade your mates to join", "All pawsitive here", "Operating purrrfectly", "Feline good today?", "Cat-aloging expenses", "I'm feline awesome!", "Preventing cat-astrophe" ] %>
-    <div class="align-top">
-    <h3 class="Poppins white" id="header"><%= fun_arr.sample %></h3>
+<div class="navbar navbar-background">
+  <i class="fa fa-home fa-lg color-white navigation-link no-margin" aria-hidden="true"></i>
+  <i class="fa fa-bars color-white" id="burger-menu" aria-hidden="true"></i>
+</div>
 
+<div class="plain-card-content-center-vertical-max-height">
+  <div class="text-center">
+    <%= image_tag("icon_welcome.png", size: '50', alt: "Edit", class: "loading-logo-img centered") %>
+    <i class="fa fa-swirl fa-lg navigation-link no-margin" aria-hidden="true"></i>
+    <% fun_arr = ["Using litter responsibly!", "Compawling the database...", "Purrsuade your mates to join", "All pawsitive here", "Operating purrrfectly", "Feline good today?", "Cat-aloging expenses", "Preventing cat-astrophe"] %>
+    <div class="title-section">
+      <p class="no-margin" style="font-weight: 300; color: grey; letter-spacing: 2px;"><%= fun_arr.sample.upcase %><p>
+    </div>
     </div>
 </div>
 
