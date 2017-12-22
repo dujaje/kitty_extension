@@ -91,6 +91,10 @@
       </div>
     <% end %>
 
+    <!-- Payment Type (Optional) -->
+    <label class="input-form-label" for="payment_method">How did you pay?</label>
+    <%= f.input :payment_method, :type => String, input_html: { id: "payment-method"}, :class => 'input-form-item', :label => false, collection: ["Bank Transfer", "Card", "Cash", "Paypal"] %>
+
     <!-- Location of Expense (Optional) -->
     <label class="input-form-label" for="first_name">Where was it?</label>
     <% locations_arr = ["Wagamama", "The Sloaney Pony", "Picturehouse", "Le Rac Shak", "PingPong Dim Sum", "Nandos", "Theater"] %>
@@ -121,28 +125,24 @@
 <!-- ##################################################################################################################### -->
 <div id="Settle" class="tabcontent" style="display: none;">
   <div class="container">
-    <!-- Pay Back Person Selector -->
-    <label class="input-form-label" for="first_name">Who do you want to settle with?</label>
-    <% if @group.users.length <= 5 %>
-        <% @group.users.each do |member| %>
-          <% if member == @user %>
-            <% next %>
-          <% end %>
-          <div class="col">
-            <div class="user-selector-area text-center">
-              <%= image_tag member.profile_picture_url, class: "avatar-large avatar-settle", data: { id: member.id } %>
-              <p class="under-avatar-text"><%= member.first_name %></p>
-            </div>
-          </div>
-        <% end %>
+    <% owed_array = [] %>
+    <% @group.users.each do |member| %>
+      <% if member == @user || @user.outstanding_with_person_in_group(member, @group) > 0 %>
+        <% owed_array << member %>
+      <% end %>
+    <% end %>
+    <% if @group.users.length == owed_array.length %>
+      <h4>Look's like you don't owe anyone at the moment - good work!</h4>
     <% else %>
-      <div class="testimonial-group side-scroller-base">
+      <!-- Pay Back Person Selector -->
+      <label class="input-form-label" for="first_name">Who do you want to settle with?</label>
+      <% if @group.users.length <= 5 %>
         <div class="row">
           <% @group.users.each do |member| %>
-            <% if member == @user %>
+            <% if member == @user || @user.outstanding_with_person_in_group(member, @group) > 0 %>
               <% next %>
             <% end %>
-            <div class="col-3">
+            <div class="col">
               <div class="user-selector-area text-center">
                 <%= image_tag member.profile_picture_url, class: "avatar-large avatar-settle", data: { id: member.id } %>
                 <p class="under-avatar-text"><%= member.first_name %></p>
@@ -150,27 +150,45 @@
             </div>
           <% end %>
         </div>
-      </div>
-    <% end %>
+      <% else %>
+        <div class="testimonial-group side-scroller-base">
+          <div class="row">
+            <% @group.users.each do |member| %>
+              <% if member == @user %>
+                <% next %>
+              <% end %>
+              <div class="col-3">
+                <div class="user-selector-area text-center">
+                  <%= image_tag member.profile_picture_url, class: "avatar-large avatar-settle", data: { id: member.id } %>
+                  <p class="under-avatar-text"><%= member.first_name %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
 
-    <%= simple_form_for [ @expense ] do |f| %>
-        <!-- Choose Amount to Settle -->
-        <% @expense.amount_cents = nil %>
-        <label class="input-form-label" for="first_name">How much did you pay?</label>
-        <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'input-form-item', :label => false, placeholder: "£0.00" %>
+      <%= simple_form_for [ @expense ] do |f| %>
+          <!-- Choose Amount to Settle -->
+          <% @expense.amount_cents = nil %>
+          <label class="input-form-label" for="payment_method">How did you pay? (required)</label>
+          <%= f.input :payment_method, :type => String, input_html: { id: "payment-method"}, :class => 'input-form-item', :label => false, collection: ["Bank Transfer", "Card", "Cash", "Paypal"] %>
+          <label class="input-form-label" for="amount_cents">How much? (required)</label>
+          <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'input-form-item', :label => false, placeholder: "£0.00" %>
 
-        <%= f.hidden_field :title, value: "#{@user.first_name} settled up" %>
-        <%= f.hidden_field :description, value: "Settled" %>
-        <%= f.hidden_field :user_id, value: @user.id %>
-        <%= f.input :settle_group, as: :hidden, input_html: { value: "", id: "settle_group_field" } %>
-        <%# f.hidden_field :settle_group, value: "#{@user.id}" %>
-        <%= f.input :to_pay_id, as: :hidden, input_html: { value: "", id: "to_pay_field" } %>
-        <%= f.hidden_field :location, value: "" %>
-        <%= f.hidden_field :group_id, value: @group.id %>
-      </div>
+          <%= f.hidden_field :title, value: "#{@user.first_name} settled up" %>
+          <%= f.hidden_field :description, value: "Settled" %>
+          <%= f.hidden_field :user_id, value: @user.id %>
+          <%= f.input :settle_group, as: :hidden, input_html: { value: "", id: "settle_group_field" } %>
+          <%# f.hidden_field :settle_group, value: "#{@user.id}" %>
+          <%= f.input :to_pay_id, as: :hidden, input_html: { value: "", id: "to_pay_field" } %>
+          <%= f.hidden_field :location, value: "" %>
+          <%= f.hidden_field :group_id, value: @group.id %>
+        </div>
 
-      <%= button_tag type: '#', class: "navbar-tick-btn" do %>
-        <i class="fa fa-check color-white navigation-link" aria-hidden="true"></i>
+        <%= button_tag type: '#', class: "navbar-tick-btn" do %>
+          <i class="fa fa-check color-white navigation-link" aria-hidden="true"></i>
+        <% end %>
       <% end %>
     <% end %>
   </div>
