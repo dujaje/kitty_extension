@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @group = get_group_id
     @transactions = all_user_transactions(@user)
     @transaction_dates = get_all_dates_transacted_upon(@transactions)
-    @in_group_transactions = filter_transactions_for_group(@transactions, @group.id)
+    @in_group_transactions = filter_transactions_for_group(@transactions, @group)
     @in_group_transaction_dates = get_all_dates_transacted_upon_in_group(@in_group_transactions)
   end
 
@@ -86,11 +86,13 @@ class UsersController < ApplicationController
     return transactions.sort_by { |item| item.created_at }.reverse
   end
 
-  def filter_transactions_for_group(transactions, group_id)
+  def filter_transactions_for_group(transactions, group)
     filtered_transactions = []
-    transactions.each do |transaction|
-      if transaction.group.id == group_id
-        filtered_transactions << transaction
+    unless group = "no_group"
+      transactions.each do |transaction|
+        if transaction.group.id == group.id
+          filtered_transactions << transaction
+        end
       end
     end
     return filtered_transactions

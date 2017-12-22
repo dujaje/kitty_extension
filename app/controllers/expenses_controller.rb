@@ -47,7 +47,7 @@ class ExpensesController < ApplicationController
   def show
     @expense = Expense.find(params[:id].to_i)
     @user = User.find(params[:user_id])
-    @group = Group.find(params[:group_id])
+    @group = get_group_id
     @nav_title = expense_show_nav_title(@expense)
   end
 
@@ -85,6 +85,14 @@ class ExpensesController < ApplicationController
     else
       puts new_group
       return new_group
+    end
+  end
+
+  def get_group_id
+    if params[:group_id]
+      return Group.find(params[:group_id])
+    else
+      return "no_group"
     end
   end
 

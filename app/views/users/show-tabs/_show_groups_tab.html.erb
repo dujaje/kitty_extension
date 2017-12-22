@@ -3,6 +3,12 @@
     <h3>Your Groups</h3>
   </div>
 
+  <% if @user.groups.empty? %>
+    <div class="title-section">
+      <h5>You haven't joined any groups yet. Try opening Kitty in a group chat to get started!</h5>
+    </div>
+  <% else %>
+
   <% @user.groups.each do |group| %>
       <% if group.memberships.length == 1 %>
         <!-- Group Card With Only One Member -->
@@ -167,3 +173,4 @@
       <% end %>
   <% end %>
 </div>
+<% end %>
