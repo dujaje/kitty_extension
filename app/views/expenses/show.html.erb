@@ -63,18 +63,20 @@
     <h4 class="no-margin">Details</h4>
   </div>
 
-  <% if @expense.location == "" && @expense.description == "" || @expense.description == "Settled" %>
-    <p>No details given.</p>
-  <% end %>
-
   <% unless @expense.location == "" %>
-    <div class="mobile-container text-center">
+    <div class="container">
       <p>Paid at: <%= @expense.location %></p>
     </div>
   <% end %>
 
+  <% unless @expense.payment_method == "" %>
+    <div class="container">
+      <p>Paid by: <%= @expense.payment_method %></p>
+    </div>
+  <% end %>
+
   <% unless @expense.description == "" || @expense.description == "Settled" %>
-    <div class="mobile-container text-center">
+    <div class="container">
       <p>Description: <%= @expense.description %></p>
     </div>
   <% end %>

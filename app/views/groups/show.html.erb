@@ -60,7 +60,7 @@
   <% if @group.expenses.empty? %>
     <h5>No expenses yet. Press the plus to add one!</h5>
   <% else %>
-    <% @group.expenses.reverse.first(10).each do |expense| %>
+    <% @group.expenses.reverse.first(5).each do |expense| %>
       <%= link_to expense_path(expense, user_id: @user.id, group_id: @group.id) do %>
         <div class="list-item-short">
           <div class="divider">

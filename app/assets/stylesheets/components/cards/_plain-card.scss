@@ -27,3 +27,19 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.plain-card-content-center-vertical-max-height {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.plain-card-content-center-vertical-max-height-with-bottom-btn {
+  min-height: calc(100vh - 56px - 61px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

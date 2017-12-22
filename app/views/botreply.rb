@@ -35,22 +35,386 @@ def get_started_reply(sender)
                   "id": "#{sender}"
                 },
                 "message": {
-                  "text": "Hi there, I'm kitty. Type anything below and I'll give you a link where you can see all your Kitties"
+                  "text": "Hi there, I'm Kitty. I help you and your friends stay ontop of group spending. See your profile or find out more by clicking the button's below.",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"See Profile",
+                                      "payload":"See Profile",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"What is Kitty?",
+                                      "payload":"Help",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"FAQs",
+                                      "payload":"Get Started Info"
+                                    }
+                                  ]
                 }
               }
   return my_reply
 end
 
-def help_reply(sender)
-  puts "in here"
+def greeting_reply(sender)
   my_reply = {
                 "messaging_type": "RESPONSE",
                 "recipient": {
                   "id": "#{sender}"
                 },
                 "message": {
-                  "text": "Hi there, I'm kitty. I'll help you share your expenses. Type anything below and I'll give you a link where you can see all your Kitties"
+                  "text": "Hi there! See your profile or find out more by clicking the button's below.",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"See Profile",
+                                      "payload":"See Profile",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"What is Kitty?",
+                                      "payload":"Help",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"FAQs",
+                                      "payload":"Get Started Info"
+                                    }
+                                  ]
                 }
+              }
+  return my_reply
+end
+
+def thumbsup_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "Thumbs up to you too! But I'm more interested in tracking your spending, so maybe ask me a question about that?",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"What is Kitty?",
+                                      "payload":"Help",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"FAQs",
+                                      "payload":"Get Started Info"
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def generic_sticker_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "Thanks for the emoji... Seriously though, I'm more interested in tracking your spending, so ask me a question about that?"
+                }
+              }
+  return my_reply
+end
+
+def basic_info_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "I'm Kitty! I'll help you track shared expenses right inside your group chats. Never let anyone forget to pay you back again!",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"More Details",
+                                      "payload":"Help",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"FAQs",
+                                      "payload":"FAQs"
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def help_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "What sort of help do you need? I can explain how to start working with Kitty, explain more about Kitty and more...",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"More Details",
+                                      "payload":"Help",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"FAQs",
+                                      "payload":"FAQs"
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def more_details_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "Kitty is a messenger extension. This is a web application built right into Facebook Messenger. Kitty wants to help you track your group expenses, whether thats with your flat mates, on a group holiday or between a couple. Once in Kitty, you will find a Dashboard for your spending, and if you open Kitty in a group chat, you will be able to track spending for that Group!",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"FAQs",
+                                      "payload":"FAQs"
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def starting_kitty_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message":{
+                            "attachment":{
+                              "type":"template",
+                              "payload":{
+                                "template_type":"button",
+                                "text": "Click the button below to create/open your profile! However, the real magic begins when you open the Kitty app in a group chat. Just press the + button and then click on Kitty! (Only on mobile for now)",
+                                "buttons":[
+                                  {
+                                    "type": "web_url",
+                                    "url": "#{ENV['NGROK']}/welcome",
+                                    "title": "Open Kitty",
+                                    "webview_height_ratio": "full",
+                                    "messenger_extensions": true
+                                  },
+                                ]
+                              }
+                            }
+                          }
+              }
+  return my_reply
+end
+
+def faq_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "There are normally three questions we get asked: 1. How does Kitty work? 2. Does Kitty intrude on my group chat? 3. Can I pay people through Kitty? Would you like to find out about them?",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 1?",
+                                      "payload":"Question1",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 2?",
+                                      "payload":"Question2",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 3?",
+                                      "payload":"Question3",
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def how_does_kitty_work_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "Kitty is built right into Messenger. When you open it up, Kitty will use your public profile details (i.e. name and profile pciture) to create a dashboard. If you open Kitty in a chat with a friend/friends, you can then create a Kitty to keep track of all your shared spending. Kitty will simplify repayments over time so that buying a round is never a hassle again.",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 2?",
+                                      "payload":"Question2",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 3?",
+                                      "payload":"Question3",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def does_kitty_intrude_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "When you create a Kitty for a group, a message is sent to the group so that your friends can join the Kitty. Past this, Kitty can always sit quietly in the background and never send another message to the group again. If you want to share new expenses or repayments with your friends though, you can do this easily when they are added. You can also set repayment reminders!",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 1?",
+                                      "payload":"Question1",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 3?",
+                                      "payload":"Question3",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def can_i_pay_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "Right now, Kitty is just for tracking expenses over time and you can settle up with people when you do pay them back via Bank Transfer, Cash etc. Person to person in app payments will be coming soon though!",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 1?",
+                                      "payload":"Question1",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Question 2?",
+                                      "payload":"Question2",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def see_profile_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message":{
+                            "attachment":{
+                              "type":"template",
+                              "payload":{
+                                "template_type":"button",
+                                "text": "Here's your Dashboard!",
+                                "buttons":[
+                                  {
+                                    "type": "web_url",
+                                    "url": "#{ENV['NGROK']}/welcome",
+                                    "title": "Open Kitty",
+                                    "webview_height_ratio": "full",
+                                    "messenger_extensions": true
+                                  },
+                                ]
+                              }
+                            }
+                          }
+              }
+  return my_reply
+end
+
+def website_info_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message":{
+                            "attachment":{
+                              "type":"template",
+                              "payload":{
+                                "template_type":"button",
+                                "text": "You want to find out more about us on our website? Awesome! The link is below:",
+                                "buttons":[
+                                  {
+                                    "type": "web_url",
+                                    "url": "http://www.kittysplit.co.uk/",
+                                    "title": "Open Kitty",
+                                    "webview_height_ratio": "full",
+                                  },
+                                ]
+                              }
+                            }
+                          }
               }
   return my_reply
 end

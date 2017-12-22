@@ -23,6 +23,7 @@ class ExpensesController < ApplicationController
     @to_pay = User.find(getparams[:to_pay_id])
     @amount_cents = getparams[:amount_cents].to_f * 100
     @description = getparams[:description]
+    @payment_method = payment_type
     p getparams[:involved_group]
     p getparams[:settle_group]
     @involved_group_string = get_involved_group(getparams[:involved_group], getparams[:settle_group])
@@ -33,7 +34,8 @@ class ExpensesController < ApplicationController
         amount_cents: @amount_cents,
         user_id: @user.id,
         group_id: @group.id,
-        location: @location)
+        location: @location,
+        payment_method: @payment_method)
     if @involved_group_string != "" && @involved_group_string != [@user.id.to_s] && @expense.save
       equal_splitter(@expense, @involved_group_string)
       redirect_to expense_path(@expense, user_id: @user.id, group_id: @group.id)
@@ -45,7 +47,7 @@ class ExpensesController < ApplicationController
   def show
     @expense = Expense.find(params[:id].to_i)
     @user = User.find(params[:user_id])
-    @group = Group.find(params[:group_id])
+    @group = get_group_id
     @nav_title = expense_show_nav_title(@expense)
   end
 
@@ -86,8 +88,24 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def get_group_id
+    if params[:group_id]
+      return Group.find(params[:group_id])
+    else
+      return "no_group"
+    end
+  end
+
+  def payment_type
+    if getparams[:payment_method] = "" || getparams[:payment_method].nil?
+      return "card"
+    else
+      return getparams[:payment_method].downcase
+    end
+  end
+
   def getparams
-    params.require(:expense).permit(:id, :split_type, :location, :settle, :title, :amount_cents, :description, :user_id, :group_id, :involved_group, :settle_group, :to_pay_id)
+    params.require(:expense).permit(:id, :split_type, :location, :settle, :title, :amount_cents, :description, :user_id, :group_id, :involved_group, :settle_group, :to_pay_id, :payment_method)
   end
 
 end

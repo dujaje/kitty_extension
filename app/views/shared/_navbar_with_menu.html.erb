@@ -2,7 +2,7 @@
   <% if @params_controller != "groups" && @params_action != "show" %>
     <% if @group != "no_group" %>
       <%= link_to group_path(@group, user_id: @user.id, group_id: @group.id) do %>
-        <i class="fa fa-chevron-left fa-md color-white navigation-link" aria-hidden="true"></i>
+        <i class="fa fa-home fa-lg color-white navigation-link no-margin" aria-hidden="true"></i>
       <% end %>
     <% end %>
   <% end %>
