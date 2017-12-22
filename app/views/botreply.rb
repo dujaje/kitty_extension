@@ -17,7 +17,8 @@ def reply(sender)
                                       "type": "web_url",
                                       "url": "#{ENV['NGROK']}/welcome",
                                       "title": "Open Kitty",
-                                      "webview_height_ratio": "full",
+                                      "webview_height_ratio": "tall",
+                                      "webview_share_button": "hide",
                                       "messenger_extensions": true
                                     }],
                                   }]
@@ -233,7 +234,8 @@ def starting_kitty_reply(sender)
                                     "type": "web_url",
                                     "url": "#{ENV['NGROK']}/welcome",
                                     "title": "Open Kitty",
-                                    "webview_height_ratio": "full",
+                                    "webview_height_ratio": "tall",
+                                    "webview_share_button": "hide",
                                     "messenger_extensions": true
                                   },
                                 ]
@@ -381,7 +383,8 @@ def see_profile_reply(sender)
                                     "type": "web_url",
                                     "url": "#{ENV['NGROK']}/welcome",
                                     "title": "Open Kitty",
-                                    "webview_height_ratio": "full",
+                                    "webview_height_ratio": "tall",
+                                    "webview_share_button": "hide",
                                     "messenger_extensions": true
                                   },
                                 ]

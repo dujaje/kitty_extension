@@ -26,21 +26,20 @@ curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=whiteli
 # ADAPT this to whitelist domain. "add" != "remove"
 curl -X POST -H "Content-Type: application/json" -d '{
   "setting_type" : "domain_whitelisting",
-  "whitelisted_domains" : ["https://64c53f3c.ngrok.io"],
+  "whitelisted_domains" : ["https://kittygroupspending.herokuapp.com"],
   "domain_action_type": "add"
-}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAEWFPF7NhkBAFViz7xRZBOKjtssA5kt0iqZCrYAxK1otWwFH515O7iH6ywewJecJmyZBKmQGFqAhP9KpBG6jLaJfn7SRnAfxDnTvhdYCYteEXA3a6JGCtfrmtGWwx2Mo8JZASIYJjDIHLKohwRb7af06651bOs52NuM3bJYQQZDZD"
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAdHTu6J8uMBAF8WikUAZA3rTN4pDhylmY5oxAd6Wd2PivLNtqRFvS5SnZBZAbLcj10cryExZB7L55YJI0ZBvbxAlTMT8jAnZAKOo8LZCAMheGCQHjTLltW8tZAPNeZAwUTdBIhxsKm7IkzEJys59oTsU3DAZAxXdvUdqZCTYjh7OuLywZDZD"
 
 
 # This initiates the home url for Kitty
 curl -X POST -H "Content-Type: application/json" -d ' {
   "home_url" : {
-     "url": "https://64c53f3c.ngrok.io/welcome",
-     "webview_height_ratio": "full",
+     "url": "https://kittygroupspending.herokuapp.com/welcome",
+     "webview_height_ratio": "tall",
      "webview_share_button": "hide",
-     "in_test":true
+     "in_test":false
   }
-
-}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAEWFPF7NhkBAFViz7xRZBOKjtssA5kt0iqZCrYAxK1otWwFH515O7iH6ywewJecJmyZBKmQGFqAhP9KpBG6jLaJfn7SRnAfxDnTvhdYCYteEXA3a6JGCtfrmtGWwx2Mo8JZASIYJjDIHLKohwRb7af06651bOs52NuM3bJYQQZDZD"
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAdHTu6J8uMBAF8WikUAZA3rTN4pDhylmY5oxAd6Wd2PivLNtqRFvS5SnZBZAbLcj10cryExZB7L55YJI0ZBvbxAlTMT8jAnZAKOo8LZCAMheGCQHjTLltW8tZAPNeZAwUTdBIhxsKm7IkzEJys59oTsU3DAZAxXdvUdqZCTYjh7OuLywZDZD"
 
 # this initaites the greeting
 
@@ -51,7 +50,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
                       "text":"Extension to help track group spending. Press get started to see you dashboard or learn how to get started with your friends."
                     }
                   ]",
-}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAEWFPF7NhkBAFViz7xRZBOKjtssA5kt0iqZCrYAxK1otWwFH515O7iH6ywewJecJmyZBKmQGFqAhP9KpBG6jLaJfn7SRnAfxDnTvhdYCYteEXA3a6JGCtfrmtGWwx2Mo8JZASIYJjDIHLKohwRb7af06651bOs52NuM3bJYQQZDZD"
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAdHTu6J8uMBAF8WikUAZA3rTN4pDhylmY5oxAd6Wd2PivLNtqRFvS5SnZBZAbLcj10cryExZB7L55YJI0ZBvbxAlTMT8jAnZAKOo8LZCAMheGCQHjTLltW8tZAPNeZAwUTdBIhxsKm7IkzEJys59oTsU3DAZAxXdvUdqZCTYjh7OuLywZDZD"
 
 # This is the get started payload
 
@@ -59,7 +58,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "get_started":{
     "payload":"We are Kitty!"
   }
-}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BACq9bkcyPMfrd249H3TNapPL8gcDyBqykPixjFZANNR3kWb2ZAdEZBiXyQyogIhsHOqDeMmKw8PyLMXiZAM2phZCczLF4YrT9CSpYcj8JM1zIzaJEA2C8pzX3SfoV5ZA317J3WOfepIZARsmSZB9ZCJ7Lg5MqPIpU9QZDZD"
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAdHTu6J8uMBAF8WikUAZA3rTN4pDhylmY5oxAd6Wd2PivLNtqRFvS5SnZBZAbLcj10cryExZB7L55YJI0ZBvbxAlTMT8jAnZAKOo8LZCAMheGCQHjTLltW8tZAPNeZAwUTdBIhxsKm7IkzEJys59oTsU3DAZAxXdvUdqZCTYjh7OuLywZDZD"
 
 #This is for the get started page
 
@@ -74,4 +73,4 @@ curl -X POST -H "Content-Type: application/json" -d '{
      "text":"Extension to help track group spending. Press get started to see you dashboard or learn how to get started with your friends."
      }
  ]
- }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAEWFPF7NhkBAIZBpgQKCheGQU087sKutAIWeGVcf7w2ZAXqft7ncW6PeuPSKgZAWnmZAy3NJvpAP2KIccD8X3h2xoZA295FHw4TMpn8sQ5yH2mREZCLz7v5ISTHP6limhqjoFvPi9Lv9r5JZCTrz7nZBFS1XavG62zRq1RS6DxlQQZDZD"
+ }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAdHTu6J8uMBAF8WikUAZA3rTN4pDhylmY5oxAd6Wd2PivLNtqRFvS5SnZBZAbLcj10cryExZB7L55YJI0ZBvbxAlTMT8jAnZAKOo8LZCAMheGCQHjTLltW8tZAPNeZAwUTdBIhxsKm7IkzEJys59oTsU3DAZAxXdvUdqZCTYjh7OuLywZDZD"
