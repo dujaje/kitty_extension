@@ -1,5 +1,3 @@
-require_dependency "app/services/facebook_service.rb"
-
 class Api::V1::UsersController < Api::V1::BaseController
   def create
     puts "...."
@@ -15,9 +13,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     if get_params[:thread_type] == "USER_TO_PAGE"
       puts "!!! User is messaging Kitty Bot, send to Profile Page !!!"
       url = Rails.application.routes.url_helpers.user_url(user)
-      puts "*******************************************"
-      p url
-      puts "*******************************************"
     else
       # Finds or Creates a New Group. Sets URL depending on situation.
       group = Group.find_by(tid: get_params[:tid])
