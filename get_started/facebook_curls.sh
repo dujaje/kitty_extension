@@ -68,10 +68,10 @@ curl -X POST -H "Content-Type: application/json" -d '{
  "greeting":[
      {
      "locale":"default",
-     "text":"Hi there, I'\''mKitty. I'\''ll help you split your expenses. First, create a Kitty in a group chat. Find me here to see all your expenses."
+     "text":"Extension to help track group spending. Press get started to see you dashboard or learn how to get started with your friends."
      }, {
      "locale":"en_US",
-     "text":"Hi there, I'\''m Kitty. I'\''ll help you split your expenses. First, create a Kitty in a group chat. Find me here to see all your expenses."
+     "text":"Extension to help track group spending. Press get started to see you dashboard or learn how to get started with your friends."
      }
  ]
- }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BACq9bkcyPMfrd249H3TNapPL8gcDyBqykPixjFZANNR3kWb2ZAdEZBiXyQyogIhsHOqDeMmKw8PyLMXiZAM2phZCczLF4YrT9CSpYcj8JM1zIzaJEA2C8pzX3SfoV5ZA317J3WOfepIZARsmSZB9ZCJ7Lg5MqPIpU9QZDZD"
+ }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAEWFPF7NhkBAIZBpgQKCheGQU087sKutAIWeGVcf7w2ZAXqft7ncW6PeuPSKgZAWnmZAy3NJvpAP2KIccD8X3h2xoZA295FHw4TMpn8sQ5yH2mREZCLz7v5ISTHP6limhqjoFvPi9Lv9r5JZCTrz7nZBFS1XavG62zRq1RS6DxlQQZDZD"

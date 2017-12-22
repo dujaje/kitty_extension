@@ -99,6 +99,11 @@ def thumbsup_reply(sender)
                   "quick_replies":[
                                     {
                                       "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    },
+                                    {
+                                      "content_type":"text",
                                       "title":"What is Kitty?",
                                       "payload":"Help",
                                     },
@@ -137,8 +142,8 @@ def basic_info_reply(sender)
                   "quick_replies":[
                                     {
                                       "content_type":"text",
-                                      "title":"Starting Kitty?",
-                                      "payload":"Starting Kitty",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
                                     },
                                     {
                                       "content_type":"text",
@@ -167,8 +172,8 @@ def help_reply(sender)
                   "quick_replies":[
                                     {
                                       "content_type":"text",
-                                      "title":"Starting Kitty?",
-                                      "payload":"Starting Kitty",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
                                     },
                                     {
                                       "content_type":"text",
@@ -197,8 +202,8 @@ def more_details_reply(sender)
                   "quick_replies":[
                                     {
                                       "content_type":"text",
-                                      "title":"Starting Kitty?",
-                                      "payload":"Starting Kitty",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
                                     },
                                     {
                                       "content_type":"text",
@@ -290,8 +295,8 @@ def how_does_kitty_work_reply(sender)
                                     },
                                     {
                                       "content_type":"text",
-                                      "title":"Starting Kitty?",
-                                      "payload":"Starting Kitty",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
                                     }
                                   ]
                 }
@@ -320,8 +325,8 @@ def does_kitty_intrude_reply(sender)
                                     },
                                     {
                                       "content_type":"text",
-                                      "title":"Starting Kitty?",
-                                      "payload":"Starting Kitty",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
                                     }
                                   ]
                 }
@@ -350,8 +355,8 @@ def can_i_pay_reply(sender)
                                     },
                                     {
                                       "content_type":"text",
-                                      "title":"Starting Kitty?",
-                                      "payload":"Starting Kitty",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
                                     }
                                   ]
                 }

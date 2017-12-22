@@ -55,7 +55,7 @@ class WebhooksController < ApplicationController
               my_reply = see_profile_reply(sender)
             elsif text.downcase.include?("more details")
               my_reply = more_details_reply(sender)
-            elsif text.downcase.include?("starting kitty")
+            elsif text.downcase.include?("start kitty") || text.downcase.include?("starting kitty")
               my_reply = starting_kitty_reply(sender)
             elsif text.downcase.include?("faq")
               my_reply = faq_reply(sender)
