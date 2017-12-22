@@ -1,4 +1,4 @@
-# require_dependency "app/services/facebook_service.rb"
+require_dependency "app/services/facebook_service.rb"
 
 class Api::V1::UsersController < Api::V1::BaseController
   def create
