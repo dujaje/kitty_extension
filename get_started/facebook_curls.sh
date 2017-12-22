@@ -46,11 +46,12 @@ curl -X POST -H "Content-Type: application/json" -d ' {
 
 curl -X POST -H "Content-Type: application/json" -d '{
     "greeting": "[
-    {
-      "locale":"default",
-      "text":"Hi there! My name is Kitty and I will help you split your expenses. To start, you can create a kitty in your group chats. Find me here when you want to look at all your expenses."
-    }]",
-  }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAKziwfhwZC0BACq9bkcyPMfrd249H3TNapPL8gcDyBqykPixjFZANNR3kWb2ZAdEZBiXyQyogIhsHOqDeMmKw8PyLMXiZAM2phZCczLF4YrT9CSpYcj8JM1zIzaJEA2C8pzX3SfoV5ZA317J3WOfepIZARsmSZB9ZCJ7Lg5MqPIpU9QZDZD"
+                    {
+                      "locale":"default",
+                      "text":"Extension to help track group spending. Press get started to see you dashboard or learn how to get started with your friends."
+                    }
+                  ]",
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAEWFPF7NhkBAFViz7xRZBOKjtssA5kt0iqZCrYAxK1otWwFH515O7iH6ywewJecJmyZBKmQGFqAhP9KpBG6jLaJfn7SRnAfxDnTvhdYCYteEXA3a6JGCtfrmtGWwx2Mo8JZASIYJjDIHLKohwRb7af06651bOs52NuM3bJYQQZDZD"
 
 # This is the get started payload
 
