@@ -8,74 +8,83 @@
 <!-- Navbar -->
 <%= render 'shared/navbar_with_menu' %>
 
-<!-- Fixed Navigation Button -->
-  <!-- Title in the navbar is always determined in the controller. -->
-<%= render 'shared/fixed_nav_btn' %>
-
-
-<!-- SECTION TO SHOW GROUP MEMBERS AND OUTSTANDING AMOUNTS -->
-<div class="container">
-  <div class="title-section">
-    <h3>Members</h3>
+<% if @group.closed == true %>
+  <div class="container">
+    <div class="title-section mt-4">
+      <h3>This group has now been closed.</h3>
+    </div>
   </div>
-</div>
+<% else %>
+  <!-- Fixed Navigation Button -->
+    <!-- Title in the navbar is always determined in the controller. -->
+  <%= render 'shared/fixed_nav_btn' %>
 
-<div class="container">
-  <% if @group.users.length == 1 && @group.users[0] == @user %>
-    <h5>No one else seems to have joined so far</h5>
-  <% else %>
-    <% @group.users.each do |member| %>
-      <% next if member == @user %>
-      <div class="list-item-tall">
-        <div class="profile-img-container">
-          <%= image_tag member.profile_picture_url, class: "avatar-medium" %>
-        </div>
-        <div class="divider">
-          <div class="list-item-divider-content">
-            <p class="list-item-text"><strong><%= member.first_name %> <%= member.last_name %></strong></p>
-            <% if @user.outstanding_with_person_in_group(member, @group) == 0 %>
-              <p class="list-item-text" >You're all square</p>
-            <% elsif @user.outstanding_with_person_in_group(member, @group) < 0 %>
-              <p class="list-item-text" >You owe: <span class="color-danger"> £<%= sprintf("%.2f", @user.outstanding_with_person_in_group(member, @group).to_f * -1 / 100) %></span></p>
-            <% else %>
-              <p class="list-item-text">Owes you: <span class="color-primary">£<%= sprintf("%.2f", @user.outstanding_with_person_in_group(member, @group).to_f / 100) %></span></p>
-            <% end %>
+
+  <!-- SECTION TO SHOW GROUP MEMBERS AND OUTSTANDING AMOUNTS -->
+  <div class="container">
+    <div class="title-section">
+      <h3>Members</h3>
+    </div>
+  </div>
+
+  <div class="container">
+    <% if @group.users.length == 1 && @group.users[0] == @user %>
+      <h5>No one else seems to have joined so far</h5>
+    <% else %>
+      <% @group.users.each do |member| %>
+        <% next if member == @user %>
+        <div class="list-item-tall">
+          <div class="profile-img-container">
+            <%= image_tag member.profile_picture_url, class: "avatar-medium" %>
           </div>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-</div>
-
-<div class="section-spacer"></div>
-
-<!-- SECTION TO SHOW EXPENSES -->
-<div class="container">
-  <div class="title-section">
-    <h3>Recent Expenses</h3>
-  </div>
-</div>
-
-<div class="container">
-  <% if @group.expenses.empty? %>
-    <h5>No expenses yet. Press the plus to add one!</h5>
-  <% else %>
-    <% @group.expenses.reverse.first(5).each do |expense| %>
-      <%= link_to expense_path(expense, user_id: @user.id, group_id: @group.id) do %>
-        <div class="list-item-short">
           <div class="divider">
-            <div class="list-item-divider-content .align-baseline">
-              <p class="list-item-text" ><%= expense.title %></p>
-            </div>
-            <div class="list-item-arrow-btn .align-baseline">
-                <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+            <div class="list-item-divider-content">
+              <p class="list-item-text"><strong><%= member.first_name %> <%= member.last_name %></strong></p>
+              <% if @user.outstanding_with_person_in_group(member, @group) == 0 %>
+                <p class="list-item-text" >You're all square</p>
+              <% elsif @user.outstanding_with_person_in_group(member, @group) < 0 %>
+                <p class="list-item-text" >You owe: <span class="color-danger"> £<%= sprintf("%.2f", @user.outstanding_with_person_in_group(member, @group).to_f * -1 / 100) %></span></p>
+              <% else %>
+                <p class="list-item-text">Owes you: <span class="color-primary">£<%= sprintf("%.2f", @user.outstanding_with_person_in_group(member, @group).to_f / 100) %></span></p>
+              <% end %>
             </div>
           </div>
         </div>
       <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+
+  <div class="section-spacer"></div>
+
+  <!-- SECTION TO SHOW EXPENSES -->
+  <div class="container">
+    <div class="title-section">
+      <h3>Recent Expenses</h3>
+    </div>
+  </div>
+
+  <div class="container">
+    <% if @group.expenses.empty? %>
+      <h5>No expenses yet. Press the plus to add one!</h5>
+    <% else %>
+      <% @group.expenses.reverse.first(5).each do |expense| %>
+        <%= link_to expense_path(expense, user_id: @user.id, group_id: @group.id) do %>
+          <div class="list-item-short">
+            <div class="divider">
+              <div class="list-item-divider-content .align-baseline">
+                <p class="list-item-text" ><%= expense.title %></p>
+              </div>
+              <div class="list-item-arrow-btn .align-baseline">
+                  <p class="list-item-text" ><i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+<% end %>
 
 <!-- JAVASCRIPT TO REFRESH PAGE IF YOU ARE THE ONLY MEMBER OF THE GROUP -->
 <% if @user.first_sign_in == true %>

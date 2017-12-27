@@ -26,4 +26,10 @@ class PagesController < ApplicationController
     @user = User.find(params[:user_id])
     @group = Group.find(params[:group_id])
   end
+
+  def report_a_bug
+    @user = User.find(params[:user_id])
+    @group = Group.find(params[:group_id])
+    @nav_title = "Report an issue"
+  end
 end

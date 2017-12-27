@@ -32,7 +32,8 @@ class GroupsController < ApplicationController
     @user = User.find(params[:user_id])
     @group = Group.find(params[:group_id])
     @group_to_delete = Group.find(params[:group_to_delete_id])
-    @group_to_delete.destroy
+    @group_to_delete.closed = true
+    @group_to_delete.save
     redirect_to user_path(@user)
   end
 

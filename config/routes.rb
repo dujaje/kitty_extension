@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'welcome', to: 'pages#redirect'
   get 'create_kitty', to: 'pages#create_kitty'
   get 'info', to: 'pages#info'
+  get 'report_a_bug', to: 'pages#report_a_bug'
 
   # GROUPS CONTROLLERS
   resources :groups, only: [:show, :update, :destroy]

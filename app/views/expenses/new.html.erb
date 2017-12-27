@@ -93,7 +93,7 @@
 
     <!-- Payment Type (Optional) -->
     <label class="input-form-label" for="payment_method">How did you pay?</label>
-    <%= f.input :payment_method, :type => String, input_html: { id: "payment-method"}, :class => 'input-form-item', :label => false, collection: ["Bank Transfer", "Card", "Cash", "Paypal"] %>
+    <%= f.input :payment_method, :type => String, input_html: { id: "payment-method"}, :class => 'input-form-item', :label => false, collection: ["Facebook Payments", "Bank Transfer", "Card", "Cash", "Paypal"] %>
 
     <!-- Location of Expense (Optional) -->
     <label class="input-form-label" for="first_name">Where was it?</label>
@@ -172,7 +172,7 @@
           <!-- Choose Amount to Settle -->
           <% @expense.amount_cents = nil %>
           <label class="input-form-label" for="payment_method">How did you pay? (required)</label>
-          <%= f.input :payment_method, :type => String, input_html: { id: "payment-method"}, :class => 'input-form-item', :label => false, collection: ["Bank Transfer", "Card", "Cash", "Paypal"] %>
+          <%= f.input :payment_method, :type => String, input_html: { id: "payment-method"}, :class => 'input-form-item', :label => false, collection: ["Facebook Payments", "Bank Transfer", "Card", "Cash", "Paypal"] %>
           <label class="input-form-label" for="amount_cents">How much? (required)</label>
           <%= f.input :amount_cents, :type => String, input_html: { id: "amount"}, :class => 'input-form-item', :label => false, placeholder: "£0.00" %>
 
@@ -211,12 +211,13 @@
                       "template_type":"generic",
                       "elements": [{
                         "title":"<%= @user.first_name %> just added an expense to your Kitty!",
-                        "subtitle": `They paid £${amount.value} for ${title.value}`,
+                        "subtitle": `They are owed for ${title.value}. It was worth £${amount.value}.`,
                         "buttons":[{
                           "type":"web_url",
                           "url":"<%= ENV['NGROK'] %>/welcome/",
                           "title":"View the Expense",
                           "webview_height_ratio": "full",
+                          "webview_share_button": "hide",
                           "messenger_extensions": true
                         }]
                       }]

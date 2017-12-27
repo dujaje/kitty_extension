@@ -67,6 +67,8 @@ class WebhooksController < ApplicationController
               my_reply = can_i_pay_reply(sender)
             elsif text.downcase.include?("website")
               my_reply = website_info_reply(sender)
+            elsif text.downcase.include?("future plans") || text.downcase.include?("future")
+              my_reply = future_plans_reply(sender)
             else
               my_reply = reply(sender)
             end

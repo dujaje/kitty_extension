@@ -129,3 +129,8 @@
 .flex-spacer {
   flex-grow: 1;
 }
+.title-flex {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
