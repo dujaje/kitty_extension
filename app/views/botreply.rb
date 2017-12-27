@@ -50,6 +50,11 @@ def get_started_reply(sender)
                                     },
                                     {
                                       "content_type":"text",
+                                      "title":"Future Plans",
+                                      "payload":"Future Plans",
+                                    },
+                                    {
+                                      "content_type":"text",
                                       "title":"FAQs",
                                       "payload":"Get Started Info"
                                     }
@@ -77,6 +82,11 @@ def greeting_reply(sender)
                                       "content_type":"text",
                                       "title":"What is Kitty?",
                                       "payload":"Help",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Future Plans",
+                                      "payload":"Future Plans",
                                     },
                                     {
                                       "content_type":"text",
@@ -150,6 +160,36 @@ def basic_info_reply(sender)
                                       "content_type":"text",
                                       "title":"More Details",
                                       "payload":"Help",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"FAQs",
+                                      "payload":"FAQs"
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def future_plans_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "Kitty has loads of development plans for the future. Our three main targets right now are: 1. Integrate closely with Facebook Payments 2. Enable splitting by percentages 3. Develop receipt recognition technology. More details will be given on our website.",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"Start Kitty",
+                                      "payload":"Start Kitty",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"See website",
+                                      "payload":"Website",
                                     },
                                     {
                                       "content_type":"text",

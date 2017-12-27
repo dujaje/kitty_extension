@@ -18,8 +18,12 @@ class GroupsController < ApplicationController
     @user = User.find(params[:group][:user_id])
     @group = Group.find(params[:group][:group_id])
     @group.name = params[:group][:name]
-    @group.save
-    redirect_to group_path(@group, user_id: @user.id, group_id: @group.id)
+    if @group.name == ""
+      render 'pages/create_kitty'
+    else
+      @group.save
+      redirect_to group_path(@group, user_id: @user.id, group_id: @group.id)
+    end
   end
 
   def reminder
@@ -32,7 +36,8 @@ class GroupsController < ApplicationController
     @user = User.find(params[:user_id])
     @group = Group.find(params[:group_id])
     @group_to_delete = Group.find(params[:group_to_delete_id])
-    @group_to_delete.destroy
+    @group_to_delete.closed = true
+    @group_to_delete.save
     redirect_to user_path(@user)
   end
 

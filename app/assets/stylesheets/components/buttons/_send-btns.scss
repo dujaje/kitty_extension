@@ -9,7 +9,7 @@
   height: 50px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   width: 97%;
   margin: 5px;
   border: none;
@@ -89,8 +89,7 @@
 }
 
 .fixed-btn-section {
-  height: 61px;
-  position: fixed;
+  max-height: 61px;
   bottom: 0;
   width: 100%;
   background-color: white;

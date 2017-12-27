@@ -19,7 +19,7 @@
     </div>
     <% else %>
     <div class="title-section">
-      <h4 class="no-margin">Overall, <%= @expense.user.first_name %> paid £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %> for <%= @expense.title %></h4>
+      <h4 class="no-margin"><%= @expense.user.first_name %> paid £<%= sprintf("%.2f", (@expense.amount_cents.to_f / 100)) %> for <%= @expense.title %></h4>
     </div>
     <% end %>
 
@@ -57,28 +57,33 @@
     <% end %>
   <% end %>
 
-  <hr>
-
   <div class="title-section">
     <h4 class="no-margin">Details</h4>
   </div>
 
-  <% unless @expense.location == "" %>
-    <div class="container">
-      <p>Paid at: <%= @expense.location %></p>
+  <div class="card">
+    <div class="card-body text-center">
+        <p class="no-margin">Kitty:</p>
+        <h4 class="no-margin"> <%= @expense.group.name %> </h4>
     </div>
-  <% end %>
+  </div>
 
-  <% unless @expense.payment_method == "" %>
-    <div class="container">
-      <p>Paid by: <%= @expense.payment_method %></p>
-    </div>
-  <% end %>
+  <div class="card-row-space"></div>
 
-  <% unless @expense.description == "" || @expense.description == "Settled" %>
-    <div class="container">
-      <p>Description: <%= @expense.description %></p>
+  <div class="card">
+    <div class="card-body">
+      <% unless @expense.location == "" %>
+        <p class="no-margin">Paid at: <%= @expense.location %></p>
+      <% end %>
+      <hr>
+      <% unless @expense.payment_method == "" %>
+        <p class="no-margin">Paid by: <%= @expense.payment_method.capitalize %></p>
+      <% end %>
+      <hr>
+      <% unless @expense.description == "" || @expense.description == "Settled" %>
+        <p class="no-margin">Description: <%= @expense.description %></p>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 
 </div>

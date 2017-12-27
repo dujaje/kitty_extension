@@ -15,37 +15,41 @@
       <% if @group != "no_group" %>
         <li class="nav-item active">
           <%= link_to group_path(@group, user_id: @user.id, group_id: @group.id) do %>
-            <p class="color-white small-padding no-margin"><i class="fa fa-users fa-fw color-white" aria-hidden="true"></i>Group</p>
+            <p class="color-white small-padding no-margin"><i class="fa fa-users fa-fw color-white mr-2" aria-hidden="true"></i>Current Group</p>
           <% end %>
         </li>
       <% end %>
       <% if @group != "no_group" %>
         <li class="nav-item">
           <%= link_to user_transactions_path(@user, user_id: @user.id, group_id: @group.id) do %>
-            <p class="color-white small-padding no-margin"><i class="fa fa-exchange fa-fw color-white" aria-hidden="true"></i>Transactions</p>
+            <p class="color-white small-padding no-margin"><i class="fa fa-exchange fa-fw color-white mr-2" aria-hidden="true"></i>Transactions</p>
           <% end %>
         </li>
         <li class="nav-item">
           <%= link_to user_path(@user, user_id: @user.id, group_id: @group.id) do %>
-            <p class="color-white small-padding no-margin"><i class="fa fa-user fa-fw color-white" aria-hidden="true"></i>Profile</p>
+            <p class="color-white small-padding no-margin"><i class="fa fa-user fa-fw color-white mr-2" aria-hidden="true"></i>Profile</p>
           <% end %>
         </li>
       <% else %>
         <li class="nav-item">
           <%= link_to user_transactions_path(@user, user_id: @user.id) do %>
-            <p class="color-white small-padding no-margin"><i class="fa fa-exchange fa-fw color-white" aria-hidden="true"></i>Transactions</p>
+            <p class="color-white small-padding no-margin"><i class="fa fa-exchange fa-fw color-white mr-2" aria-hidden="true"></i>Transactions</p>
           <% end %>
         </li>
         <li class="nav-item">
           <%= link_to user_path(@user, user_id: @user.id) do %>
-            <p class="color-white small-padding no-margin"><i class="fa fa-user fa-fw color-white" aria-hidden="true"></i>Profile</p>
+            <p class="color-white small-padding no-margin"><i class="fa fa-user fa-fw color-white mr-2" aria-hidden="true"></i>Profile</p>
           <% end %>
         </li>
       <% end %>
-      <div class="dropdown-divider"></div>
-      <li class="nav-item">
-        <p class="color-white small-padding no-margin"><i class="fa fa-bug fa-fw color-white" aria-hidden="true"></i>Report a bug</p>
-      </li>
+      <% if @group != "no_group" %>
+        <div class="dropdown-divider"></div>
+        <li class="nav-item">
+          <%= link_to report_a_bug_path(user_id: @user.id, group_id: @group.id) do %>
+            <p class="color-white small-padding no-margin"><i class="fa fa-bug fa-fw color-white mr-2" aria-hidden="true"></i>Report a bug</p>
+          <% end %>
+        </li>
+      <% end %>
       <!-- <li class="nav-item">
         <a class="nav-link" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> Settings</a>
       </li> -->
