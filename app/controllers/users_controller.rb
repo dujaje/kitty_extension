@@ -88,7 +88,7 @@ class UsersController < ApplicationController
 
   def filter_transactions_for_group(transactions, group)
     filtered_transactions = []
-    unless group = "no_group"
+    unless group == "no_group"
       transactions.each do |transaction|
         if transaction.group.id == group.id
           filtered_transactions << transaction
