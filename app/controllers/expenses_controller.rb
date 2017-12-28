@@ -20,7 +20,7 @@ class ExpensesController < ApplicationController
     @user = User.find(getparams[:user_id])
     @group = Group.find(getparams[:group_id])
     @title = getparams[:title]
-    @to_pay = User.find(getparams[:to_pay_id])
+    # @to_pay = User.find(getparams[:to_pay_id])
     @amount_cents = getparams[:amount_cents].to_f * 100
     @description = getparams[:description]
     @payment_method = payment_type
@@ -40,6 +40,7 @@ class ExpensesController < ApplicationController
       equal_splitter(@expense, @involved_group_string)
       redirect_to expense_path(@expense, user_id: @user.id, group_id: @group.id)
     else
+      flash.now[:alert] = "You didn't select anyone"
       render :new
     end
   end
