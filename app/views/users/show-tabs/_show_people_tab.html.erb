@@ -7,6 +7,8 @@
     <% @users.each do |member| %>
       <% if member == @user %>
         <% next %>
+      <% elsif member.profile_picture_url.blank? %>
+        <% next %>
       <% elsif @user.outstanding_with_person_overall(member) == 0 %>
         <% next %>
       <% elsif @user.outstanding_with_person_overall(member) > 0 %>
@@ -34,6 +36,8 @@
     </div>
     <% @users.each do |member| %>
       <% if member == @user %>
+        <% next %>
+      <% elsif member.profile_picture_url.blank? %>
         <% next %>
       <% elsif @user.outstanding_with_person_overall(member) == 0 %>
         <% next %>

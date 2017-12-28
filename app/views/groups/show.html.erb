@@ -32,6 +32,7 @@
       <h5>No one else seems to have joined so far</h5>
     <% else %>
       <% @group.users.each do |member| %>
+       <% next if member.profile_picture_url.blank? %>
         <% next if member == @user %>
         <div class="list-item-tall">
           <div class="profile-img-container">
