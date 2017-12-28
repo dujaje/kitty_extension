@@ -50,7 +50,10 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def choosing_non_bot_redirect(user, group)
     if group
-      if group.kitty_created
+      if group.closed
+        puts "5. The group exists, but has been closed. Need to rerun creata kitty."
+        url = create_kitty_url(user, group)
+      elsif group.kitty_created
         url = first_sign_in_url(user, group)
       else
         puts "5. The group exists, but they have not created a kitty yet."
