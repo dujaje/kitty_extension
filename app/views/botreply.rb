@@ -36,7 +36,42 @@ def get_started_reply(sender)
                   "id": "#{sender}"
                 },
                 "message": {
-                  "text": "Hi there, I'm Kitty. I help you and your friends stay ontop of group spending. See your profile or find out more by clicking the button's below.",
+                  "text": "Hi there, I'm Kitty. I help you and your friends stay ontop of group spending. See your profile or find out more by clicking the buttons below.",
+                  "quick_replies":[
+                                    {
+                                      "content_type":"text",
+                                      "title":"See Profile",
+                                      "payload":"See Profile",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"What is Kitty?",
+                                      "payload":"Help",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"Future Plans",
+                                      "payload":"Future Plans",
+                                    },
+                                    {
+                                      "content_type":"text",
+                                      "title":"FAQs",
+                                      "payload":"Get Started Info"
+                                    }
+                                  ]
+                }
+              }
+  return my_reply
+end
+
+def how_do_i_open_reply(sender)
+  my_reply = {
+                "messaging_type": "RESPONSE",
+                "recipient": {
+                  "id": "#{sender}"
+                },
+                "message": {
+                  "text": "When in a group chat, just press the plus button above the keyboard to see all your Messenger Extensions. Kitty should be in there! If you don't see the plus button, please upgrade Messenger. ",
                   "quick_replies":[
                                     {
                                       "content_type":"text",
