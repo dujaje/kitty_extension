@@ -28,13 +28,13 @@ class GroupsController < ApplicationController
 
   def reminder
     @user = User.find(params[:user_id])
-    @group = Group.find(params[:group_id])
+    @group = get_group_id
     @nav_titles = ["Send Reminder"]
   end
 
   def destroy
     @user = User.find(params[:user_id])
-    @group = Group.find(params[:group_id])
+    @group = get_group_id
     @group_to_delete = Group.find(params[:group_to_delete_id])
     @group_to_delete.closed = true
     @group_to_delete.save
@@ -65,6 +65,16 @@ class GroupsController < ApplicationController
       return "You owe: £#{sprintf('%.2f', user_outstanding_with_group.to_f * -1 / 100)}"
     else
       "You are owed: £#{sprintf('%.2f', user_outstanding_with_group.to_f / 100)}"
+    end
+  end
+
+  def get_group_id
+    if params[:group_id] == "no_group"
+      return "no_group"
+    elsif params[:group_id]
+      return Group.find(params[:group_id])
+    else
+      return "no_group"
     end
   end
 
