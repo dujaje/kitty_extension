@@ -1,0 +1,43 @@
+<!-- JAVASCRIPT WHICH CALLS THE API, RETRIEVES OR CREATES USER DATA, REDIRECTS (redirect chosen in API action) -->
+<%= content_for(:after_js) do %>
+  <script>
+    // AJAX Fetch Request to Kitty API
+    window.extAsyncInit = function() {
+      let getdetails = function(result) {
+        fetch("/api/v1/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ 'user': result })
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Redirection Occurs using API response
+            window.location.replace(data.url)
+          });
+      }
+      // Facebook Messenger SDK Get Context of Thread and User
+      MessengerExtensions.getContext(<%= ENV['APP_ID'] %>,
+        getdetails,
+        function error(result){
+          document.getElementById('header').innerText = 'error in get context'
+        });
+      // Facebook Messenger SDK Ask Permission to use data if necessary
+      MessengerExtensions.askPermission(
+        function(permission_response) {
+          // Person grants or rejects the asked permission.
+          let permissions = permission_response.permissions; // list of all permissions granted
+          let isGranted = permission_response.isGranted; // Boolean
+          if (isGranted) {
+            // User has granted user_profile permission, allow to proceed.
+          }
+        }, function(errorCode, errorMessage) {
+          // Error occurred in permissions, usually because trying to access page from Laptop not phone.
+          document.getElementById('header').innerText = 'Not available on this device';
+        },
+        "user_profile"
+      );
+    };
+  </script>
+<% end %>
