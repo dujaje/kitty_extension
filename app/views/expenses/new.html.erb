@@ -98,16 +98,16 @@
     <% end %>
 
     <!-- Payment Type (Optional) -->
-    <label class="input-form-label" for="payment_method">How did you pay?</label>
+    <label class="input-form-label" for="payment_method">How did you pay? (Optional)</label>
     <%= f.input :payment_method, :type => String, input_html: { id: "payment-method"}, :class => 'input-form-item', :label => false, collection: ["Facebook Payments", "Bank Transfer", "Card", "Cash", "Paypal"] %>
 
     <!-- Location of Expense (Optional) -->
-    <label class="input-form-label" for="first_name">Where was it?</label>
+    <label class="input-form-label" for="first_name">Where was it? (Optional)</label>
     <% locations_arr = ["Wagamama", "The Sloaney Pony", "Picturehouse", "Le Rac Shak", "PingPong Dim Sum", "Nandos", "Theater"] %>
     <%= f.input :location, :class => 'input-form-item', :label => false, placeholder: "#{locations_arr.sample}" %>
 
     <!-- Description of Expense (Optional) -->
-    <label class="input-form-label" for="first_name">Description?</label>
+    <label class="input-form-label" for="first_name">Description? (Optional)</label>
     <% descriptions_arr = ["Jamie's Birthday", "Open Mic Night", "Holiday on Mallorca", "Interrailing with Charlotte", "Weekend trip to Wonderland", "Deliveroo"] %>
     <%= f.input :description, :class => 'input-form-item', :label => false, :type => "text", placeholder: "#{descriptions_arr.sample} " %>
 
